@@ -1,0 +1,23 @@
+---
+title: "Burning Questions: The Role of Wildfires in Watershed Functioning"
+---
+
+![](https://raw.githubusercontent.com/burning-issues/comm-assets/main/wildfires.png){fig-alt="Intense fire consuming trees in a forest" fig-align="center"}
+
+# Welcome!
+
+This site is an invitation to collaborate in "Shaping the future of wildfire science".
+
+With your help we want to identify top priorities and unanswered questions on the cascading impacts of fires in watersheds.
+
+More specifically, our objective is to identify, assess, and collate currently unanswered research questions on the ecosystem biogeochemical impacts of wildfires.
+
+We will synthesize emergent themes and identify key research priorities in this field. We seek to do this from a community perspective and solicit researchers to share their viewpoints.
+
+# Our initial survey
+
+We have got responses from more than 60 wildfire scientists to the following questions: 
+
+* In your opinion, which are 2 of the most **pressing questions** that need to be addressed to further our understanding of wildfire impacts on biogeochemical cycling in watersheds.
+* What are the most important **pathways** towards better integrating fire science across scientific disciplines?
+* What are the key **roadblocks** towards a more holistic understanding of the cumulative spatiotemporal impacts of wildfires in terrestrial and aquatic environments across both short and long timescales?

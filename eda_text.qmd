@@ -1,0 +1,316 @@
+---
+title: "Exploratory Text-Data Analysis"
+---
+
+```{r setup, include=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# A Text analysis with [Tidytext](https://www.tidytextmining.com/index.html)
+
+This is an exploratory data analysis (flesh out later)
+
+```{r echo = FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(tidytext)
+library(tidyverse)
+library(widyr)
+library(igraph)
+library(ggraph)
+library(wordcloud)
+library(reshape2)
+library(graphlayouts)
+library(pluralize)
+library(quanteda)
+# library(spacyr)
+# library(reticulate)
+
+#Function to adjust table width:
+  
+html_table_width <- function(kable_output, width){
+  width_html <- paste0(paste0('<col width="', width, '">'), collapse = "\n")
+  sub("<table>", paste0("<table>\n", width_html), kable_output)
+}  
+
+# Source: https://github.com/rstudio/bookdown/issues/122
+```
+
+## Loading the dataset & Tokenization
+
+### Our dataset
+
+Our initial dataset contains answers from 67 participants to the following questions:
+
+**Research Areas**: Which research area do you identify with? Choose all that apply
+
+**Pressing questions**: Articulate what are 2 of the most pressing questions that need to be addressed to further our understanding of wildfire impacts on biogeochemical cycling in watersheds.
+
+The datafile is organized in long format with three columns for the variables: Unique Identifier "ID", "question" and "answers". The original excel file was saved as CSV-UTF-8 for text analysis purposes.
+
+
+```{r echo=FALSE}
+setwd("C:/Users/guer310/OneDrive - PNNL/Documents/GitHub/community-paper/wildfires_watersheds_vault")
+t_df <- read.csv("TOOLS/Assets/Data/wildfires-survey-answers.csv")
+t_df1 <- as.data.frame(rbind(t_df[c(1:3),],t_df[c(68:71),], row.names = FALSE))
+colnames(t_df1) <- c("ID", "Question type", "Answers")
+knitr::kable(head(t_df1),format="html")%>% 
+   html_table_width(c(100,100,100))
+setwd("C:/Users/guer310/OneDrive - PNNL/Documents/GitHub/community-paper/wildfires_watersheds_rdocs")
+```
+
+## Tokenization
+
+**Tokenization** is the process of separating every single word contained in an answer and creating a new data file that will contain as many rows as total words in the original dataset.
+
+For this part we are going to separate the answers for the first two questions in two data sets. This is because the research area answers easier to analyze than those for the pressing questions. The research area answers are separated by commas and contain no filler words (due to the format used for the original question in the google form).
+
+```{r}
+#For research area questions
+ra_dat <- t_df%>%filter(question=="research-a")
+
+#For pressing questions
+pq_dat <- t_df%>%filter(question=="pressing-q")
+```
+
+Let's use wordclouds to visualize the ouput of tokenizing the research area dataset. I had to adjust the size of the words using the scale parameter (maximum size = 4 by default). Otherwise certain long words would not be fit into the plot (see [stackoverflow answer](https://www.tidytextmining.com/sentiment.html?q=cloud#wordclouds))
+
+```{r echo=FALSE}
+ra_dat%>%
+  unnest_tokens(output = word, input = answers)%>%
+  count(word, sort = TRUE)%>%
+  distinct() %>% 
+  with(wordcloud(word,n, scale = c(4, .07)))
+```
+
+Pressing questions answers requires an extra step. We need to remove "filler words" a.k.a. **stop words** (e.g., a, the, this...). We also need to deal with plurals and singulars of the same word. 
+
+```{r echo=FALSE}
+stp_eg <- as.data.frame(rbind(head(stop_words),
+                              tail(stop_words)),
+                        row.names = FALSE)
+colnames(stp_eg) <- c("Stop word", "Lexicon")
+knitr::kable(stp_eg,format="html") %>% 
+   html_table_width(c(200,200))
+```
+
+More info about lexicons and text categorization can be found [here](https://juliasilge.github.io/tidytext/reference/stop_words.html)
+
+Let's use wordclouds again to see the difference between the raw answers and "cleaned" answers for the pressing questions topic.
+
+
+```{r}
+pq_tokens <- pq_dat %>% 
+  unnest_tokens(output = word, input = answers)%>%
+  anti_join(stop_words, by = "word")%>%
+  filter(str_detect(word,"[:alpha:]"))%>%
+  distinct() %>% 
+  count(word, sort = FALSE) %>% 
+  mutate(length = nchar(word)) 
+head(pq_tokens)
+```
+
+### Dealing with Plurals and singulars
+
+From [Stack overflow](https://stackoverflow.com/questions/55772761/is-there-a-better-way-to-ignore-the-plural-than-stem-true-in-a-dfm)
+
+"The best way to do this is to use a tool to tag your plural nouns, and then to convert these to singular. Unlike the stemmer solution, this will not stem words such as stemming to stem, or quickly to quick, etc.I recommend using the [**spacyr**](https://spacyr.quanteda.io/index.html) package for this, which integrates nicely with quanteda."
+
+Yet, there are a few steps required for this to work, as detailed in [Running Python Chunks in RStudio and rmarkdown](). After that you could also watch this [YouTube Tutorial](https://www.youtube.com/watch?v=gn8oJ8FMSWY&ab_channel=RenzoCaceresRossi).
+
+
+***Raw Data***
+
+```{r echo=FALSE}
+pq_dat %>%
+  unnest_tokens(output = word, input = answers)%>%
+  distinct() %>% 
+  count(word, sort = TRUE) %>% 
+  with(wordcloud(word,n, scale = c(4, .1)))
+```
+
+
+```{r}
+gls <- as.data.frame(pq_dat %>%
+  unnest_tokens(output = word, input = answers)%>%
+  anti_join(stop_words, by = "word")%>%
+  filter(str_detect(word,"[:alpha:]"))%>%
+  distinct() %>% 
+  count(word, sort = TRUE))
+head(gls)
+```
+
+***"Clean" Data***
+
+```{r echo=FALSE}
+pq_dat %>%
+  unnest_tokens(output = word, input = answers)%>%
+  anti_join(stop_words, by = "word")%>%
+  filter(str_detect(word,"[:alpha:]"))%>%
+  distinct() %>% 
+  count(word, sort = TRUE) %>% 
+  with(wordcloud(word,n, scale = c(4, .1)))
+```
+
+We used the function `anti_join` to remove stop words. We also want to remove numbers (like year of publication). To do so we use the combination of `filter` and `str_detec` to preserve only alphabetic characters `"[:alpha:]"`. Finally, to make sure we are not double counting words, we use the function `distinct`.
+
+***Glossary***
+
+Besides identifying the words that are more frequently used in the answers, we could use our dataset to create a consistent glossary. 
+
+```{r echo=FALSE}
+gls <- as.data.frame(pq_dat %>%
+  unnest_tokens(output = word, input = answers)%>%
+  anti_join(stop_words, by = "word")%>%
+  filter(str_detect(word,"[:alpha:]"))%>%
+  distinct() %>% 
+  count(word, sort = TRUE))
+gls_dsp <- rbind(head(gls),tail(gls))
+colnames(gls_dsp) <- c("Word", "Frequency")
+knitr::kable(gls_dsp,format="html") %>% 
+   html_table_width(c(200,200))
+```
+
+To do so, we could use a frequency filter; including words above a frequency threshold (e.g. 2)
+
+```{r}
+gls_fw <- filter(gls, n > 2)
+gls_fwp <- rbind(head(gls_fw),tail(gls_fw))
+colnames(gls_fwp) <- c("Word", "Frequency")
+knitr::kable(gls_fwp,format="html") %>% 
+   html_table_width(c(200,200))
+```
+
+We still have a long list of words that are not necessarily associated to wildfires. We can look into different associations to get collections of keywords. Bit before that, we will start with term frequencies
+
+## [Term Frequencies](https://www.tidytextmining.com/tfidf.html)
+
+```{r echo=FALSE}
+eda_words <- pq_dat %>%
+  unnest_tokens(output = word, input = answers)%>%
+  anti_join(stop_words, by = "word")%>%
+  filter(str_detect(word,"[:alpha:]"))%>%
+  distinct() %>% 
+  count(word, sort = TRUE) %>% 
+  select(word, n) %>% 
+  mutate(rank = row_number(),
+         total=sum(n),
+         t_freq = n/total)
+
+#Distribution of frequency values
+eda_words %>% filter(rank<26) %>% 
+  ggplot(aes(t_freq, fct_reorder(word, t_freq), fill = t_freq)) +
+  geom_col(show.legend = FALSE) +
+  labs(x = "Frequency", y = NULL)
+
+#Zipf's law for survey answers
+eda_words %>% 
+  ggplot(aes(rank,t_freq)) + 
+  geom_line(size = 1.1, alpha = 0.8, show.legend = FALSE) + 
+  geom_abline(intercept = -0.62, slope = -1.1, 
+              color = "gray50", linetype = 2) +
+  scale_x_log10() +
+  scale_y_log10()
+
+```
+Words with low frequency make a large contribution to the text.
+
+
+We observe deviations from the Zipf's law both at the higher rank words (rare)and the lower rank words (more common). On the one hand, we have more words than expected at higher ranks, and less words than expected at lower ranks. This is perhaps the effect of abundant technical terms in the corpus analyzed here. 
+
+Analyzing word's frequencies using Zipf's law seems to have some drawbacks, see: [Zipf’s law holds for phrases, not words](https://www.nature.com/articles/srep12209). However the `unnest_tokens` function can also be applied to sentences. 
+
+```{r echo=FALSE}
+pq_snt <- pq_dat %>%
+  unnest_sentences(output = sentences, input = answers)
+
+pq_snt_s <- pq_snt[c(1:6),]
+knitr::kable(pq_snt_s,format="html") %>% 
+   html_table_width(c(100,100,400))
+```
+
+
+### The `bind_tf_idf` function
+
+A function from the `tidytext` package that aims to find the most common words in a text by decreasing the weight of the most common terms and increasing it for the less common (i.e. meeting in the middle scenario)
+
+"The logic of tf-idf is that the words containing the greatest information about a particular document are the words that appear many times in that document, but in relatively few others."
+
+It is meant to be for document intercomparison. Here we could use it for questions, abstracts, or even journal articles. 
+
+## Text mining with multiple pdf's
+
+[Text mining with R - Importing PDF and Text Detection](https://www.youtube.com/watch?v=G1_mbenG8H4&ab_channel=LiquidBrain)
+
+## Correlation analysis
+
+### Relationships between words: n-grams
+
+```{r}
+pq_digrams <- pq_dat %>%
+  filter(str_detect(answers,"[:alpha:]"))%>%
+  unnest_tokens(bigram, answers, token = "ngrams", n = 2) %>% 
+  separate(bigram,c("word1", "word2"), sep = " ") %>% 
+  filter(!word1 %in% stop_words$word) %>% 
+  filter(!word2 %in% stop_words$word) %>% 
+  count(word1, word2, sort = TRUE) %>% 
+  mutate(rank = row_number(),
+         total=sum(n),
+         t_freq = n/total)
+head(pq_digrams)
+
+#Distribution of frequency values
+pq_digrams %>% filter(rank < 26) %>% 
+  unite(bigram, word1, word2, sep = " ") %>% 
+  ggplot(aes(t_freq, fct_reorder(bigram, t_freq), fill = t_freq)) +
+  geom_col(show.legend = FALSE) +
+  labs(x = "Frequency", y = NULL)
+
+#Zipf's law for survey answers
+pq_digrams %>% 
+  ggplot(aes(rank,t_freq)) + 
+  geom_line(size = 1.1, alpha = 0.8, show.legend = FALSE) + 
+  geom_abline(intercept = -0.62, slope = -1.1, 
+              color = "gray50", linetype = 2) +
+  scale_x_log10() +
+  scale_y_log10()+
+  xlab("Rarity")+
+  ylab("Frequency")
+```
+
+### Visualizing a network of bigrams with `ggraph`
+
+```{r}
+library(igraph)
+library(graphlayouts)
+library(qgraph)
+
+bigram_graph <- pq_digrams %>%
+  filter(rank < 101) %>%
+  graph_from_data_frame()
+bigram_graph
+
+set.seed(2017)
+
+# a <- grid::arrow(type = "closed", length = unit(.15, "inches"))
+# 
+# ggraph(bigram_graph, layout = "fr") +
+#   geom_edge_link(show.legend = FALSE,
+#                  arrow = a, end_cap = circle(.07, 'inches')) +
+#   geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,
+#                  arrow = a, end_cap = circle(.035, 'inches')) +
+#   geom_node_point(color = "blue", size = 3) +
+#   geom_node_text(aes(label = name), vjust = 1, hjust = 1)+
+#   theme_void()
+# V(bigram_graph)$size <- V(bigram_graph)$t_freq*10
+l <- layout_with_fr(bigram_graph)
+e <- get.edgelist(bigram_graph,names=FALSE)
+m <- qgraph.layout.fruchtermanreingold(e,vcount=vcount(bigram_graph))
+deg <- degree(bigram_graph,mode="all")
+fsize <- degree(bigram_graph, mode= "all")
+
+plot(bigram_graph,layout=m, edge.arrow.size =.05,vertex.color = "pink", vertex.size =500,vertex.frame.color="deeppink",vertex.label.color="black", vertex.label.cex=fsize/5,vertex.label.dist=0.8,edge.curve = 0.75,edge.color="skyblue",edge.label.family="Arial", rescale=F, axes = FALSE, ylim = c(-50,90), xlim = c(-55,120), asp =0)
+
+plot(bigram_graph,layout=m, edge.arrow.size =.05,vertex.color = "pink", vertex.size =deg*150,vertex.frame.color="deeppink",vertex.label.color="black", vertex.label.cex=0.55,vertex.label.dist=0.8,edge.curve = 0.75,edge.color="skyblue",edge.label.family="Arial", rescale=F, axes = FALSE, ylim = c(-50,90), xlim = c(-55,120), asp =0)
+```
+
+Editing network graphs: [GitHub-Issue](https://github.com/thomasp85/ggraph/issues/169) 

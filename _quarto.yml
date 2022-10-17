@@ -1,0 +1,27 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Wildfires and Watersheds"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: timeline.qmd
+      - href: synthesis.qmd
+      - href: eda_text.qmd
+        text: Analysis
+      - href: about.qmd
+        text: Community
+
+format:
+  html:
+    theme: 
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    toc: true
+
+
+
