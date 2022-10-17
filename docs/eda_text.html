@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Wildfires and Watersheds - Exploratory Text-Data Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Wildfires and Watersheds</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./timeline.html">Timeline</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./synthesis.html">Synthesis</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./eda_text.html" aria-current="page">Analysis</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html">Community</a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-text-analysis-with-tidytext" id="toc-a-text-analysis-with-tidytext" class="nav-link active" data-scroll-target="#a-text-analysis-with-tidytext">A Text analysis with Tidytext</a>
+  <ul class="collapse">
+  <li><a href="#loading-the-dataset-tokenization" id="toc-loading-the-dataset-tokenization" class="nav-link" data-scroll-target="#loading-the-dataset-tokenization">Loading the dataset &amp; Tokenization</a>
+  <ul class="collapse">
+  <li><a href="#our-dataset" id="toc-our-dataset" class="nav-link" data-scroll-target="#our-dataset">Our dataset</a></li>
+  </ul></li>
+  <li><a href="#tokenization" id="toc-tokenization" class="nav-link" data-scroll-target="#tokenization">Tokenization</a>
+  <ul class="collapse">
+  <li><a href="#dealing-with-plurals-and-singulars" id="toc-dealing-with-plurals-and-singulars" class="nav-link" data-scroll-target="#dealing-with-plurals-and-singulars">Dealing with Plurals and singulars</a></li>
+  </ul></li>
+  <li><a href="#term-frequencies" id="toc-term-frequencies" class="nav-link" data-scroll-target="#term-frequencies">Term Frequencies</a>
+  <ul class="collapse">
+  <li><a href="#the-bind_tf_idf-function" id="toc-the-bind_tf_idf-function" class="nav-link" data-scroll-target="#the-bind_tf_idf-function">The <code>bind_tf_idf</code> function</a></li>
+  </ul></li>
+  <li><a href="#text-mining-with-multiple-pdfs" id="toc-text-mining-with-multiple-pdfs" class="nav-link" data-scroll-target="#text-mining-with-multiple-pdfs">Text mining with multiple pdf’s</a></li>
+  <li><a href="#correlation-analysis" id="toc-correlation-analysis" class="nav-link" data-scroll-target="#correlation-analysis">Correlation analysis</a>
+  <ul class="collapse">
+  <li><a href="#relationships-between-words-n-grams" id="toc-relationships-between-words-n-grams" class="nav-link" data-scroll-target="#relationships-between-words-n-grams">Relationships between words: n-grams</a></li>
+  <li><a href="#visualizing-a-network-of-bigrams-with-ggraph" id="toc-visualizing-a-network-of-bigrams-with-ggraph" class="nav-link" data-scroll-target="#visualizing-a-network-of-bigrams-with-ggraph">Visualizing a network of bigrams with <code>ggraph</code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Exploratory Text-Data Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="a-text-analysis-with-tidytext" class="level1">
+<h1>A Text analysis with <a href="https://www.tidytextmining.com/index.html">Tidytext</a></h1>
+<p>This is an exploratory data analysis (flesh out later)</p>
+<div class="cell">
+
+</div>
+<section id="loading-the-dataset-tokenization" class="level2">
+<h2 class="anchored" data-anchor-id="loading-the-dataset-tokenization">Loading the dataset &amp; Tokenization</h2>
+<section id="our-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="our-dataset">Our dataset</h3>
+<p>Our initial dataset contains answers from 67 participants to the following questions:</p>
+<p><strong>Research Areas</strong>: Which research area do you identify with? Choose all that apply</p>
+<p><strong>Pressing questions</strong>: Articulate what are 2 of the most pressing questions that need to be addressed to further our understanding of wildfire impacts on biogeochemical cycling in watersheds.</p>
+<p>The datafile is organized in long format with three columns for the variables: Unique Identifier “ID”, “question” and “answers”. The original excel file was saved as CSV-UTF-8 for text analysis purposes.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table>
+<colgroup><col width="100">
+<col width="100">
+<col width="100">
+ </colgroup><thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;"> ID </th>
+   <th style="text-align:left;"> Question type </th>
+   <th style="text-align:left;"> Answers </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:left;"> IA0001 </td>
+   <td style="text-align:left;"> pressing-q </td>
+   <td style="text-align:left;"> better understanding of the temporal scales of the different impacts as well as their potential interactions movement of materials ash, pyrogenic carbon, eroded soil between compartments  from hillslopes to the hydrological network as well as physical and biological alterations of those during the transport </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:left;"> IA0002 </td>
+   <td style="text-align:left;"> pressing-q </td>
+   <td style="text-align:left;"> How are flow pathways affected by wildfires  change of hydrological processes beyond vegetation removal?
+How long do changes in hydrology and biogeochemistry last? including importance of forest disturbance history </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:left;"> IA0003 </td>
+   <td style="text-align:left;"> pressing-q </td>
+   <td style="text-align:left;"> How important are deeper groundwater flowpaths for prolonging elevated nutrient yields in burned watersheds? The vast majority of post-wildfire studies on biogeochemical cycling have focused on surface or shallow flowpaths, yet post-fire geochemical tracers indicate elevated contributions from deeper bedrock flowpaths during some hydroclimatic conditions Murphy  2018.
+What is the role of hyporheic flow through wildfire-deposited or reworked sediments in stream beds for enhancing or buffering elevated constituent loading in streams? Wildfires alter streambed sediments through aggradation, incision, and stabilization phases controlled by links between hydroclimatic conditions and geomorphic processes Moody, 2017. Despite the ubiquity of changes in streambed sediments, we know little about how these streambed changes and associated alteration of hyporheic flow changes biogeochemical cycling. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 68 </td>
+   <td style="text-align:left;"> IA0001 </td>
+   <td style="text-align:left;"> research-a </td>
+   <td style="text-align:left;"> Nutrient Cycling, Pyrogenic Organic Matter, Soil Stability, Quality, Mineralogy, Pyrogenic Organic Matter Transport, Fluxes, Water Quality, Watershed Management </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> IA0002 </td>
+   <td style="text-align:left;"> research-a </td>
+   <td style="text-align:left;"> Water Routing, Hillslope Hydrology, Surface Water – Groundwater Interactions, Hydrological Modeling </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> IA0003 </td>
+   <td style="text-align:left;"> research-a </td>
+   <td style="text-align:left;"> Water Routing, Hillslope Hydrology, Hydrological Modeling </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+</section>
+<section id="tokenization" class="level2">
+<h2 class="anchored" data-anchor-id="tokenization">Tokenization</h2>
+<p><strong>Tokenization</strong> is the process of separating every single word contained in an answer and creating a new data file that will contain as many rows as total words in the original dataset.</p>
+<p>For this part we are going to separate the answers for the first two questions in two data sets. This is because the research area answers easier to analyze than those for the pressing questions. The research area answers are separated by commas and contain no filler words (due to the format used for the original question in the google form).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#For research area questions</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ra_dat <span class="ot">&lt;-</span> t_df<span class="sc">%&gt;%</span><span class="fu">filter</span>(question<span class="sc">==</span><span class="st">"research-a"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#For pressing questions</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>pq_dat <span class="ot">&lt;-</span> t_df<span class="sc">%&gt;%</span><span class="fu">filter</span>(question<span class="sc">==</span><span class="st">"pressing-q"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s use wordclouds to visualize the ouput of tokenizing the research area dataset. I had to adjust the size of the words using the scale parameter (maximum size = 4 by default). Otherwise certain long words would not be fit into the plot (see <a href="https://www.tidytextmining.com/sentiment.html?q=cloud#wordclouds">stackoverflow answer</a>)</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="eda_text_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Pressing questions answers requires an extra step. We need to remove “filler words” a.k.a. <strong>stop words</strong> (e.g., a, the, this…). We also need to deal with plurals and singulars of the same word.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table>
+<colgroup><col width="200">
+<col width="200">
+ </colgroup><thead>
+  <tr>
+   <th style="text-align:left;"> Stop word </th>
+   <th style="text-align:left;"> Lexicon </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> a </td>
+   <td style="text-align:left;"> SMART </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> a's </td>
+   <td style="text-align:left;"> SMART </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> able </td>
+   <td style="text-align:left;"> SMART </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> about </td>
+   <td style="text-align:left;"> SMART </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> above </td>
+   <td style="text-align:left;"> SMART </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> according </td>
+   <td style="text-align:left;"> SMART </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> you </td>
+   <td style="text-align:left;"> onix </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> young </td>
+   <td style="text-align:left;"> onix </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> younger </td>
+   <td style="text-align:left;"> onix </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> youngest </td>
+   <td style="text-align:left;"> onix </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> your </td>
+   <td style="text-align:left;"> onix </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> yours </td>
+   <td style="text-align:left;"> onix </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>More info about lexicons and text categorization can be found <a href="https://juliasilge.github.io/tidytext/reference/stop_words.html">here</a></p>
+<p>Let’s use wordclouds again to see the difference between the raw answers and “cleaned” answers for the pressing questions topic.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pq_tokens <span class="ot">&lt;-</span> pq_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> answers)<span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(word,<span class="st">"[:alpha:]"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">length =</span> <span class="fu">nchar</span>(word)) </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pq_tokens)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         word n length
+1       2017a 1      5
+2        21st 1      4
+3     ability 3      7
+4       abney 1      5
+5     absence 1      7
+6 acccurately 1     11</code></pre>
+</div>
+</div>
+<section id="dealing-with-plurals-and-singulars" class="level3">
+<h3 class="anchored" data-anchor-id="dealing-with-plurals-and-singulars">Dealing with Plurals and singulars</h3>
+<p>From <a href="https://stackoverflow.com/questions/55772761/is-there-a-better-way-to-ignore-the-plural-than-stem-true-in-a-dfm">Stack overflow</a></p>
+<p>“The best way to do this is to use a tool to tag your plural nouns, and then to convert these to singular. Unlike the stemmer solution, this will not stem words such as stemming to stem, or quickly to quick, etc.I recommend using the <a href="https://spacyr.quanteda.io/index.html"><strong>spacyr</strong></a> package for this, which integrates nicely with quanteda.”</p>
+<p>Yet, there are a few steps required for this to work, as detailed in <a href="">Running Python Chunks in RStudio and rmarkdown</a>. After that you could also watch this <a href="https://www.youtube.com/watch?v=gn8oJ8FMSWY&amp;ab_channel=RenzoCaceresRossi">YouTube Tutorial</a>.</p>
+<p><strong><em>Raw Data</em></strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="eda_text_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gls <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(pq_dat <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> answers)<span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(word,<span class="st">"[:alpha:]"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            word  n
+1           fire 44
+2       wildfire 29
+3          water 21
+4        cycling 20
+5        impacts 20
+6 biogeochemical 18</code></pre>
+</div>
+</div>
+<p><strong><em>“Clean” Data</em></strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="eda_text_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We used the function <code>anti_join</code> to remove stop words. We also want to remove numbers (like year of publication). To do so we use the combination of <code>filter</code> and <code>str_detec</code> to preserve only alphabetic characters <code>"[:alpha:]"</code>. Finally, to make sure we are not double counting words, we use the function <code>distinct</code>.</p>
+<p><strong><em>Glossary</em></strong></p>
+<p>Besides identifying the words that are more frequently used in the answers, we could use our dataset to create a consistent glossary.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table>
+<colgroup><col width="200">
+<col width="200">
+ </colgroup><thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;"> Word </th>
+   <th style="text-align:right;"> Frequency </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:left;"> fire </td>
+   <td style="text-align:right;"> 44 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:left;"> wildfire </td>
+   <td style="text-align:right;"> 29 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:left;"> water </td>
+   <td style="text-align:right;"> 21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 4 </td>
+   <td style="text-align:left;"> cycling </td>
+   <td style="text-align:right;"> 20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 5 </td>
+   <td style="text-align:left;"> impacts </td>
+   <td style="text-align:right;"> 20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 6 </td>
+   <td style="text-align:left;"> biogeochemical </td>
+   <td style="text-align:right;"> 18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1073 </td>
+   <td style="text-align:left;"> world </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1074 </td>
+   <td style="text-align:left;"> wu </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1075 </td>
+   <td style="text-align:left;"> wuis </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1076 </td>
+   <td style="text-align:left;"> xanes </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1077 </td>
+   <td style="text-align:left;"> xas </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1078 </td>
+   <td style="text-align:left;"> yosemite </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>To do so, we could use a frequency filter; including words above a frequency threshold (e.g.&nbsp;2)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gls_fw <span class="ot">&lt;-</span> <span class="fu">filter</span>(gls, n <span class="sc">&gt;</span> <span class="dv">2</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>gls_fwp <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">head</span>(gls_fw),<span class="fu">tail</span>(gls_fw))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(gls_fwp) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Word"</span>, <span class="st">"Frequency"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(gls_fwp,<span class="at">format=</span><span class="st">"html"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">html_table_width</span>(<span class="fu">c</span>(<span class="dv">200</span>,<span class="dv">200</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table>
+<colgroup><col width="200">
+<col width="200">
+ </colgroup><thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;"> Word </th>
+   <th style="text-align:right;"> Frequency </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:left;"> fire </td>
+   <td style="text-align:right;"> 44 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:left;"> wildfire </td>
+   <td style="text-align:right;"> 29 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:left;"> water </td>
+   <td style="text-align:right;"> 21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 4 </td>
+   <td style="text-align:left;"> cycling </td>
+   <td style="text-align:right;"> 20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 5 </td>
+   <td style="text-align:left;"> impacts </td>
+   <td style="text-align:right;"> 20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 6 </td>
+   <td style="text-align:left;"> biogeochemical </td>
+   <td style="text-align:right;"> 18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 201 </td>
+   <td style="text-align:left;"> supply </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 202 </td>
+   <td style="text-align:left;"> traditional </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 203 </td>
+   <td style="text-align:left;"> transported </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 204 </td>
+   <td style="text-align:left;"> types </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 205 </td>
+   <td style="text-align:left;"> variation </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 206 </td>
+   <td style="text-align:left;"> vary </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>We still have a long list of words that are not necessarily associated to wildfires. We can look into different associations to get collections of keywords. Bit before that, we will start with term frequencies</p>
+</section>
+</section>
+<section id="term-frequencies" class="level2">
+<h2 class="anchored" data-anchor-id="term-frequencies"><a href="https://www.tidytextmining.com/tfidf.html">Term Frequencies</a></h2>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="eda_text_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="eda_text_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Words with low frequency make a large contribution to the text.</p>
+<p>We observe deviations from the Zipf’s law both at the higher rank words (rare)and the lower rank words (more common). On the one hand, we have more words than expected at higher ranks, and less words than expected at lower ranks. This is perhaps the effect of abundant technical terms in the corpus analyzed here.</p>
+<p>Analyzing word’s frequencies using Zipf’s law seems to have some drawbacks, see: <a href="https://www.nature.com/articles/srep12209">Zipf’s law holds for phrases, not words</a>. However the <code>unnest_tokens</code> function can also be applied to sentences.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table>
+<colgroup><col width="100">
+<col width="100">
+<col width="400">
+ </colgroup><thead>
+  <tr>
+   <th style="text-align:left;"> ID </th>
+   <th style="text-align:left;"> question </th>
+   <th style="text-align:left;"> sentences </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> IA0001 </td>
+   <td style="text-align:left;"> pressing-q </td>
+   <td style="text-align:left;"> better understanding of the temporal scales of the different impacts as well as their potential interactions movement of materials ash, pyrogenic carbon, eroded soil between compartments  from hillslopes to the hydrological network as well as physical and biological alterations of those during the transport </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IA0002 </td>
+   <td style="text-align:left;"> pressing-q </td>
+   <td style="text-align:left;"> how are flow pathways affected by wildfires  change of hydrological processes beyond vegetation removal? </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IA0002 </td>
+   <td style="text-align:left;"> pressing-q </td>
+   <td style="text-align:left;"> how long do changes in hydrology and biogeochemistry last? </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IA0002 </td>
+   <td style="text-align:left;"> pressing-q </td>
+   <td style="text-align:left;"> including importance of forest disturbance history </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IA0003 </td>
+   <td style="text-align:left;"> pressing-q </td>
+   <td style="text-align:left;"> how important are deeper groundwater flowpaths for prolonging elevated nutrient yields in burned watersheds? </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IA0003 </td>
+   <td style="text-align:left;"> pressing-q </td>
+   <td style="text-align:left;"> the vast majority of post-wildfire studies on biogeochemical cycling have focused on surface or shallow flowpaths, yet post-fire geochemical tracers indicate elevated contributions from deeper bedrock flowpaths during some hydroclimatic conditions murphy  2018. </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<section id="the-bind_tf_idf-function" class="level3">
+<h3 class="anchored" data-anchor-id="the-bind_tf_idf-function">The <code>bind_tf_idf</code> function</h3>
+<p>A function from the <code>tidytext</code> package that aims to find the most common words in a text by decreasing the weight of the most common terms and increasing it for the less common (i.e.&nbsp;meeting in the middle scenario)</p>
+<p>“The logic of tf-idf is that the words containing the greatest information about a particular document are the words that appear many times in that document, but in relatively few others.”</p>
+<p>It is meant to be for document intercomparison. Here we could use it for questions, abstracts, or even journal articles.</p>
+</section>
+</section>
+<section id="text-mining-with-multiple-pdfs" class="level2">
+<h2 class="anchored" data-anchor-id="text-mining-with-multiple-pdfs">Text mining with multiple pdf’s</h2>
+<p><a href="https://www.youtube.com/watch?v=G1_mbenG8H4&amp;ab_channel=LiquidBrain">Text mining with R - Importing PDF and Text Detection</a></p>
+</section>
+<section id="correlation-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-analysis">Correlation analysis</h2>
+<section id="relationships-between-words-n-grams" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-between-words-n-grams">Relationships between words: n-grams</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pq_digrams <span class="ot">&lt;-</span> pq_dat <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(answers,<span class="st">"[:alpha:]"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(bigram, answers, <span class="at">token =</span> <span class="st">"ngrams"</span>, <span class="at">n =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(bigram,<span class="fu">c</span>(<span class="st">"word1"</span>, <span class="st">"word2"</span>), <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>word1 <span class="sc">%in%</span> stop_words<span class="sc">$</span>word) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>word2 <span class="sc">%in%</span> stop_words<span class="sc">$</span>word) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word1, word2, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>(),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">total=</span><span class="fu">sum</span>(n),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">t_freq =</span> n<span class="sc">/</span>total)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pq_digrams)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           word1   word2  n rank total      t_freq
+1           post    fire 25    1  1444 0.017313019
+2 biogeochemical cycling 18    2  1444 0.012465374
+3         debris   flows 12    3  1444 0.008310249
+4        organic  matter 10    4  1444 0.006925208
+5          water quality  9    5  1444 0.006232687
+6        climate  change  8    6  1444 0.005540166</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Distribution of frequency values</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pq_digrams <span class="sc">%&gt;%</span> <span class="fu">filter</span>(rank <span class="sc">&lt;</span> <span class="dv">26</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(bigram, word1, word2, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(t_freq, <span class="fu">fct_reorder</span>(bigram, t_freq), <span class="at">fill =</span> t_freq)) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Frequency"</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="eda_text_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Zipf's law for survey answers</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pq_digrams <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(rank,t_freq)) <span class="sc">+</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.1</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="sc">-</span><span class="fl">0.62</span>, <span class="at">slope =</span> <span class="sc">-</span><span class="fl">1.1</span>, </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"gray50"</span>, <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()<span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Rarity"</span>)<span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="eda_text_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="visualizing-a-network-of-bigrams-with-ggraph" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-a-network-of-bigrams-with-ggraph">Visualizing a network of bigrams with <code>ggraph</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(graphlayouts)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qgraph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'qgraph'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:ggraph':
+
+    qgraph</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>bigram_graph <span class="ot">&lt;-</span> pq_digrams <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rank <span class="sc">&lt;</span> <span class="dv">101</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">graph_from_data_frame</span>()</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>bigram_graph</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>IGRAPH 3409478 DN-- 123 100 -- 
++ attr: name (v/c), n (e/n), rank (e/n), total (e/n), t_freq (e/n)
++ edges from 3409478 (vertex names):
+ [1] post          -&gt;fire        biogeochemical-&gt;cycling    
+ [3] debris        -&gt;flows       organic       -&gt;matter     
+ [5] water         -&gt;quality     climate       -&gt;change     
+ [7] pyrogenic     -&gt;carbon      fire          -&gt;regimes    
+ [9] wildfire      -&gt;impacts     pyrogenic     -&gt;organic    
+[11] aquatic       -&gt;ecosystems  black         -&gt;carbon     
+[13] fire          -&gt;severity    microbial     -&gt;communities
+[15] carbon        -&gt;storage     fire          -&gt;impacts    
++ ... omitted several edges</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2017</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># a &lt;- grid::arrow(type = "closed", length = unit(.15, "inches"))</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ggraph(bigram_graph, layout = "fr") +</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_edge_link(show.legend = FALSE,</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#                  arrow = a, end_cap = circle(.07, 'inches')) +</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                  arrow = a, end_cap = circle(.035, 'inches')) +</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_node_point(color = "blue", size = 3) +</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_node_text(aes(label = name), vjust = 1, hjust = 1)+</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_void()</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># V(bigram_graph)$size &lt;- V(bigram_graph)$t_freq*10</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">layout_with_fr</span>(bigram_graph)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">get.edgelist</span>(bigram_graph,<span class="at">names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">qgraph.layout.fruchtermanreingold</span>(e,<span class="at">vcount=</span><span class="fu">vcount</span>(bigram_graph))</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>deg <span class="ot">&lt;-</span> <span class="fu">degree</span>(bigram_graph,<span class="at">mode=</span><span class="st">"all"</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>fsize <span class="ot">&lt;-</span> <span class="fu">degree</span>(bigram_graph, <span class="at">mode=</span> <span class="st">"all"</span>)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bigram_graph,<span class="at">layout=</span>m, <span class="at">edge.arrow.size =</span>.<span class="dv">05</span>,<span class="at">vertex.color =</span> <span class="st">"pink"</span>, <span class="at">vertex.size =</span><span class="dv">500</span>,<span class="at">vertex.frame.color=</span><span class="st">"deeppink"</span>,<span class="at">vertex.label.color=</span><span class="st">"black"</span>, <span class="at">vertex.label.cex=</span>fsize<span class="sc">/</span><span class="dv">5</span>,<span class="at">vertex.label.dist=</span><span class="fl">0.8</span>,<span class="at">edge.curve =</span> <span class="fl">0.75</span>,<span class="at">edge.color=</span><span class="st">"skyblue"</span>,<span class="at">edge.label.family=</span><span class="st">"Arial"</span>, <span class="at">rescale=</span>F, <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">50</span>,<span class="dv">90</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>,<span class="dv">120</span>), <span class="at">asp =</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="eda_text_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bigram_graph,<span class="at">layout=</span>m, <span class="at">edge.arrow.size =</span>.<span class="dv">05</span>,<span class="at">vertex.color =</span> <span class="st">"pink"</span>, <span class="at">vertex.size =</span>deg<span class="sc">*</span><span class="dv">150</span>,<span class="at">vertex.frame.color=</span><span class="st">"deeppink"</span>,<span class="at">vertex.label.color=</span><span class="st">"black"</span>, <span class="at">vertex.label.cex=</span><span class="fl">0.55</span>,<span class="at">vertex.label.dist=</span><span class="fl">0.8</span>,<span class="at">edge.curve =</span> <span class="fl">0.75</span>,<span class="at">edge.color=</span><span class="st">"skyblue"</span>,<span class="at">edge.label.family=</span><span class="st">"Arial"</span>, <span class="at">rescale=</span>F, <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">50</span>,<span class="dv">90</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>,<span class="dv">120</span>), <span class="at">asp =</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="eda_text_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Editing network graphs: <a href="https://github.com/thomasp85/ggraph/issues/169">GitHub-Issue</a></p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
