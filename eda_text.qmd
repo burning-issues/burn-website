@@ -11,19 +11,28 @@ knitr::opts_chunk$set(echo = TRUE)
 This is an exploratory data analysis (flesh out later)
 
 ```{r echo = FALSE, warning=FALSE, message=FALSE}
-library(dplyr)
-library(tidytext)
-library(tidyverse)
-library(widyr)
-library(igraph)
-library(ggraph)
-library(wordcloud)
-library(reshape2)
-library(graphlayouts)
-library(pluralize)
-library(quanteda)
+#library(dplyr)
+#library(tidytext)
+#library(tidyverse)
+#library(widyr)
+#library(igraph)
+#library(ggraph)
+#library(wordcloud)
+#library(reshape2)
+#library(graphlayouts)
+#library(pluralize)
+#library(quanteda)
 # library(spacyr)
 # library(reticulate)
+#library(igraph)
+#library(graphlayouts)
+#library(qgraph)
+
+require(pacman)
+pacman::p_load(dplyr, tidytext, tidyverse,
+            widyr,igraph, ggraph, 
+            wordcloud, reshape2, graphlayouts,
+            pluralize, quanteda, qgraph, cowplot)
 
 #Function to adjust table width:
   
@@ -49,13 +58,13 @@ The datafile is organized in long format with three columns for the variables: U
 
 
 ```{r echo=FALSE}
-setwd("C:/Users/guer310/OneDrive - PNNL/Documents/GitHub/community-paper/wildfires_watersheds_vault")
+setwd("../community-paper/wildfires_watersheds_vault")
 t_df <- read.csv("TOOLS/Assets/Data/wildfires-survey-answers.csv")
 t_df1 <- as.data.frame(rbind(t_df[c(1:3),],t_df[c(68:71),], row.names = FALSE))
 colnames(t_df1) <- c("ID", "Question type", "Answers")
 knitr::kable(head(t_df1),format="html")%>% 
    html_table_width(c(100,100,100))
-setwd("C:/Users/guer310/OneDrive - PNNL/Documents/GitHub/community-paper/wildfires_watersheds_rdocs")
+setwd("../community-paper/wildfires_watersheds_rdocs")
 ```
 
 ## Tokenization
@@ -79,7 +88,7 @@ ra_dat%>%
   unnest_tokens(output = word, input = answers)%>%
   count(word, sort = TRUE)%>%
   distinct() %>% 
-  with(wordcloud(word,n, scale = c(4, .07)))
+  with(wordcloud(word,n, scale = c(3, .07)))
 ```
 
 Pressing questions answers requires an extra step. We need to remove "filler words" a.k.a. **stop words** (e.g., a, the, this...). We also need to deal with plurals and singulars of the same word. 
@@ -280,9 +289,9 @@ pq_digrams %>%
 ### Visualizing a network of bigrams with `ggraph`
 
 ```{r}
-library(igraph)
-library(graphlayouts)
-library(qgraph)
+#library(igraph)
+#library(graphlayouts)
+#library(qgraph)
 
 bigram_graph <- pq_digrams %>%
   filter(rank < 101) %>%
@@ -308,9 +317,18 @@ m <- qgraph.layout.fruchtermanreingold(e,vcount=vcount(bigram_graph))
 deg <- degree(bigram_graph,mode="all")
 fsize <- degree(bigram_graph, mode= "all")
 
+#png(filename=paste("assets/NetworkAnalysis_words_",Sys.Date(),".png", sep = ""), res = 100)
+
 plot(bigram_graph,layout=m, edge.arrow.size =.05,vertex.color = "pink", vertex.size =500,vertex.frame.color="deeppink",vertex.label.color="black", vertex.label.cex=fsize/5,vertex.label.dist=0.8,edge.curve = 0.75,edge.color="skyblue",edge.label.family="Arial", rescale=F, axes = FALSE, ylim = c(-50,90), xlim = c(-55,120), asp =0)
 
+#dev.off()
+
+#png(filename=paste("assets/NetworkAnalysis_bubbles_",Sys.Date(),".png", sep = ""), res = 100)
+
 plot(bigram_graph,layout=m, edge.arrow.size =.05,vertex.color = "pink", vertex.size =deg*150,vertex.frame.color="deeppink",vertex.label.color="black", vertex.label.cex=0.55,vertex.label.dist=0.8,edge.curve = 0.75,edge.color="skyblue",edge.label.family="Arial", rescale=F, axes = FALSE, ylim = c(-50,90), xlim = c(-55,120), asp =0)
+
+#dev.off()
+
 ```
 
 Editing network graphs: [GitHub-Issue](https://github.com/thomasp85/ggraph/issues/169) 
