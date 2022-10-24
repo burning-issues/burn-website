@@ -2,9 +2,9 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "Content creators",
     "section": "",
-    "text": "1 + 1\n\n[1] 2"
+    "text": "This gh-page was created and is maintained by Allison Myers-Pigg and Francisco J. Guerrero. Both Allison and Francisco work at the Pacific Northwest National Laboratory. Here is a little bit more about us:"
   },
   {
     "objectID": "eda_text.html",
@@ -19,5 +19,12 @@
     "title": "Burning Questions: The Role of Wildfires in Watershed Functioning",
     "section": "",
     "text": "Welcome!\nThis site is an invitation to collaborate in “Shaping the future of wildfire science”.\nWith your help we want to identify top priorities and unanswered questions on the cascading impacts of fires in watersheds.\nMore specifically, our objective is to identify, assess, and collate currently unanswered research questions on the ecosystem biogeochemical impacts of wildfires.\nWe will synthesize emergent themes and identify key research priorities in this field. We seek to do this from a community perspective and solicit researchers to share their viewpoints.\n\n\nOur initial survey\nWe have got responses from more than 60 wildfire scientists to the following questions:\n\nIn your opinion, which are 2 of the most pressing questions that need to be addressed to further our understanding of wildfire impacts on biogeochemical cycling in watersheds.\nWhat are the most important pathways towards better integrating fire science across scientific disciplines?\nWhat are the key roadblocks towards a more holistic understanding of the cumulative spatiotemporal impacts of wildfires in terrestrial and aquatic environments across both short and long timescales?"
+  },
+  {
+    "objectID": "about.html#allison-myers-pigg",
+    "href": "about.html#allison-myers-pigg",
+    "title": "Content creators",
+    "section": "Allison Myers-Pigg",
+    "text": "Allison Myers-Pigg\nallison-myers-pigg-pnnl.gov – allison.myers-pigg@pnnl.gov\n\nAllison Myers-Pigg contributes to the development and implementation of the disturbances research campaign as part of the Subsurface Research Science Focus Area project. Her role includes contributing to research activities, fieldwork, laboratory experiments, and study design, and she is a key contributor towards investigation of mechanisms and hydrobiogeochemical impacts of watershed disturbances."
   }
 ]

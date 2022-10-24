@@ -1,9 +1,16 @@
 ---
-title: "About"
+title: "Content creators"
 ---
 
-About this site
+This gh-page was created and is maintained by Allison Myers-Pigg and Francisco J.
+Guerrero. Both Allison and Francisco work at the Pacific Northwest National Laboratory.
+Here is a little bit more about us:
 
-```{r}
-1 + 1
-```
+## Allison Myers-Pigg
+
+[allison-myers-pigg-pnnl.gov](https://www.pnnl.gov/people/allison-myers-pigg) -- **allison.myers-pigg@pnnl.gov**
+
+<img src="https://raw.githubusercontent.com/burning-issues/comm-assets/main/Picture2.png" align="right" width="23%"/>
+
+Allison Myers-Pigg contributes to the development and implementation of the disturbances research campaign as part of the Subsurface Research Science Focus Area project. Her role includes contributing to research activities, fieldwork, laboratory experiments, and study design, and she is a key contributor towards investigation of mechanisms and hydrobiogeochemical impacts of watershed disturbances.
+
