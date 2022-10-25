@@ -2,15 +2,24 @@
 title: "Content creators"
 ---
 
-This gh-page was created and is maintained by Allison Myers-Pigg and Francisco J.
-Guerrero. Both Allison and Francisco work at the Pacific Northwest National Laboratory.
-Here is a little bit more about us:
+Allison Myers-Pigg and I, Francisco J. started this page to have a space for the collaborators of this project. 
+
+To get us started, here is a little bit more about us:
 
 ## Allison Myers-Pigg
 
 [allison-myers-pigg-pnnl.gov](https://www.pnnl.gov/people/allison-myers-pigg) -- **allison.myers-pigg@pnnl.gov**
 
-<img src="https://raw.githubusercontent.com/burning-issues/comm-assets/main/Picture2.png" align="right" width="23%"/>
+<img src="https://raw.githubusercontent.com/burning-issues/burn_iss_comm-assets/83f844809a2ad806420c6b20304cf6bd6378d5af/Picture2.png" align="right" width="23%"/>
 
 Allison Myers-Pigg contributes to the development and implementation of the disturbances research campaign as part of the Subsurface Research Science Focus Area project. Her role includes contributing to research activities, fieldwork, laboratory experiments, and study design, and she is a key contributor towards investigation of mechanisms and hydrobiogeochemical impacts of watershed disturbances.
+
+## Francisco J. Guerrero
+
+[guerrero-fg.github.io](https://guerrero-fj.github.io/my-website/) -- **francisco.guerrero@pnnl.gov**
+ 
+<img src="https://raw.githubusercontent.com/burning-issues/burn_iss_comm-assets/83f844809a2ad806420c6b20304cf6bd6378d5af/guerrero_fj_4.png" align="right" width="23%"/>
+
+Francisco J. Guerrero is the Science and Communication Research Associate for the Integrated, Coordinated, Open, and Networked-[ICON](https://www.pnnl.gov/projects/icon-science) Science Cooperative at PNNL. He is a watershed ecologist and a science communicator. 
+Since 2004, Francisco has been studying land to ocean carbon fluxes in small mountainous river systems. In his parallel role as communicator (since 2014), he has designed and implemented communication infrastructure (workshops, panels, working groups facilitation, etc.) at research-driven organizations from regional to national levels (e.g. universities, state agencies, and national research centers). Currently, Francisco is creating workflows for scientists and knowledge workers to integrate strategic communication tools along the scientific production lifecycle (from ideation to publication).
 

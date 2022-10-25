@@ -240,10 +240,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <table>
 <colgroup><col width="100">
 <col width="100">
-<col width="100">
+<col width="500">
  </colgroup><thead>
   <tr>
-   <th style="text-align:left;">   </th>
    <th style="text-align:left;"> ID </th>
    <th style="text-align:left;"> Question type </th>
    <th style="text-align:left;"> Answers </th>
@@ -251,39 +250,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 1 </td>
    <td style="text-align:left;"> IA0001 </td>
    <td style="text-align:left;"> pressing-q </td>
    <td style="text-align:left;"> better understanding of the temporal scales of the different impacts as well as their potential interactions movement of materials ash, pyrogenic carbon, eroded soil between compartments  from hillslopes to the hydrological network as well as physical and biological alterations of those during the transport </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 2 </td>
    <td style="text-align:left;"> IA0002 </td>
    <td style="text-align:left;"> pressing-q </td>
    <td style="text-align:left;"> How are flow pathways affected by wildfires  change of hydrological processes beyond vegetation removal?
 How long do changes in hydrology and biogeochemistry last? including importance of forest disturbance history </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 3 </td>
    <td style="text-align:left;"> IA0003 </td>
    <td style="text-align:left;"> pressing-q </td>
    <td style="text-align:left;"> How important are deeper groundwater flowpaths for prolonging elevated nutrient yields in burned watersheds? The vast majority of post-wildfire studies on biogeochemical cycling have focused on surface or shallow flowpaths, yet post-fire geochemical tracers indicate elevated contributions from deeper bedrock flowpaths during some hydroclimatic conditions Murphy  2018.
 What is the role of hyporheic flow through wildfire-deposited or reworked sediments in stream beds for enhancing or buffering elevated constituent loading in streams? Wildfires alter streambed sediments through aggradation, incision, and stabilization phases controlled by links between hydroclimatic conditions and geomorphic processes Moody, 2017. Despite the ubiquity of changes in streambed sediments, we know little about how these streambed changes and associated alteration of hyporheic flow changes biogeochemical cycling. </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 68 </td>
    <td style="text-align:left;"> IA0001 </td>
    <td style="text-align:left;"> research-a </td>
    <td style="text-align:left;"> Nutrient Cycling, Pyrogenic Organic Matter, Soil Stability, Quality, Mineralogy, Pyrogenic Organic Matter Transport, Fluxes, Water Quality, Watershed Management </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 69 </td>
    <td style="text-align:left;"> IA0002 </td>
    <td style="text-align:left;"> research-a </td>
    <td style="text-align:left;"> Water Routing, Hillslope Hydrology, Surface Water – Groundwater Interactions, Hydrological Modeling </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 70 </td>
    <td style="text-align:left;"> IA0003 </td>
    <td style="text-align:left;"> research-a </td>
    <td style="text-align:left;"> Water Routing, Hillslope Hydrology, Hydrological Modeling </td>
@@ -391,13 +384,15 @@ What is the role of hyporheic flow through wildfire-deposited or reworked sedime
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">length =</span> <span class="fu">nchar</span>(word)) </span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pq_tokens)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         word n length
-1       2017a 1      5
-2        21st 1      4
-3     ability 3      7
-4       abney 1      5
-5     absence 1      7
-6 acccurately 1     11</code></pre>
+<pre><code># A tibble: 6 × 3
+  word            n length
+  &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;
+1 2017a           1      5
+2 21st            1      4
+3 ability         3      7
+4 abney           1      5
+5 absence         1      7
+6 acccurately     1     11</code></pre>
 </div>
 </div>
 <section id="dealing-with-plurals-and-singulars" class="level3">
@@ -696,13 +691,15 @@ What is the role of hyporheic flow through wildfire-deposited or reworked sedime
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">t_freq =</span> n<span class="sc">/</span>total)</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pq_digrams)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           word1   word2  n rank total      t_freq
-1           post    fire 25    1  1444 0.017313019
-2 biogeochemical cycling 18    2  1444 0.012465374
-3         debris   flows 12    3  1444 0.008310249
-4        organic  matter 10    4  1444 0.006925208
-5          water quality  9    5  1444 0.006232687
-6        climate  change  8    6  1444 0.005540166</code></pre>
+<pre><code># A tibble: 6 × 6
+  word1          word2       n  rank total  t_freq
+  &lt;chr&gt;          &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
+1 post           fire       25     1  1444 0.0173 
+2 biogeochemical cycling    18     2  1444 0.0125 
+3 debris         flows      12     3  1444 0.00831
+4 organic        matter     10     4  1444 0.00693
+5 water          quality     9     5  1444 0.00623
+6 climate        change      8     6  1444 0.00554</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Distribution of frequency values</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pq_digrams <span class="sc">%&gt;%</span> <span class="fu">filter</span>(rank <span class="sc">&lt;</span> <span class="dv">26</span>) <span class="sc">%&gt;%</span> </span>
@@ -731,26 +728,18 @@ What is the role of hyporheic flow through wildfire-deposited or reworked sedime
 <section id="visualizing-a-network-of-bigrams-with-ggraph" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-a-network-of-bigrams-with-ggraph">Visualizing a network of bigrams with <code>ggraph</code></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(graphlayouts)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qgraph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'qgraph'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:ggraph':
-
-    qgraph</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>bigram_graph <span class="ot">&lt;-</span> pq_digrams <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rank <span class="sc">&lt;</span> <span class="dv">101</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">graph_from_data_frame</span>()</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>bigram_graph</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(igraph)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#library(graphlayouts)</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#library(qgraph)</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>bigram_graph <span class="ot">&lt;-</span> pq_digrams <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rank <span class="sc">&lt;</span> <span class="dv">101</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">graph_from_data_frame</span>()</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>bigram_graph</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 27f13e8 DN-- 123 100 -- 
+<pre><code>IGRAPH ec66ecb DN-- 123 100 -- 
 + attr: name (v/c), n (e/n), rank (e/n), total (e/n), t_freq (e/n)
-+ edges from 27f13e8 (vertex names):
++ edges from ec66ecb (vertex names):
  [1] post          -&gt;fire        biogeochemical-&gt;cycling    
  [3] debris        -&gt;flows       organic       -&gt;matter     
  [5] water         -&gt;quality     climate       -&gt;change     
@@ -761,33 +750,40 @@ Attaching package: 'qgraph'</code></pre>
 [15] carbon        -&gt;storage     fire          -&gt;impacts    
 + ... omitted several edges</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2017</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># a &lt;- grid::arrow(type = "closed", length = unit(.15, "inches"))</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ggraph(bigram_graph, layout = "fr") +</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_edge_link(show.legend = FALSE,</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#                  arrow = a, end_cap = circle(.07, 'inches')) +</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                  arrow = a, end_cap = circle(.035, 'inches')) +</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_node_point(color = "blue", size = 3) +</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_node_text(aes(label = name), vjust = 1, hjust = 1)+</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_void()</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># V(bigram_graph)$size &lt;- V(bigram_graph)$t_freq*10</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">layout_with_fr</span>(bigram_graph)</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">get.edgelist</span>(bigram_graph,<span class="at">names=</span><span class="cn">FALSE</span>)</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">qgraph.layout.fruchtermanreingold</span>(e,<span class="at">vcount=</span><span class="fu">vcount</span>(bigram_graph))</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>deg <span class="ot">&lt;-</span> <span class="fu">degree</span>(bigram_graph,<span class="at">mode=</span><span class="st">"all"</span>)</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>fsize <span class="ot">&lt;-</span> <span class="fu">degree</span>(bigram_graph, <span class="at">mode=</span> <span class="st">"all"</span>)</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bigram_graph,<span class="at">layout=</span>m, <span class="at">edge.arrow.size =</span>.<span class="dv">05</span>,<span class="at">vertex.color =</span> <span class="st">"pink"</span>, <span class="at">vertex.size =</span><span class="dv">500</span>,<span class="at">vertex.frame.color=</span><span class="st">"deeppink"</span>,<span class="at">vertex.label.color=</span><span class="st">"black"</span>, <span class="at">vertex.label.cex=</span>fsize<span class="sc">/</span><span class="dv">5</span>,<span class="at">vertex.label.dist=</span><span class="fl">0.8</span>,<span class="at">edge.curve =</span> <span class="fl">0.75</span>,<span class="at">edge.color=</span><span class="st">"skyblue"</span>,<span class="at">edge.label.family=</span><span class="st">"Arial"</span>, <span class="at">rescale=</span>F, <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">50</span>,<span class="dv">90</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>,<span class="dv">120</span>), <span class="at">asp =</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2017</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># a &lt;- grid::arrow(type = "closed", length = unit(.15, "inches"))</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ggraph(bigram_graph, layout = "fr") +</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_edge_link(show.legend = FALSE,</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#                  arrow = a, end_cap = circle(.07, 'inches')) +</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#                  arrow = a, end_cap = circle(.035, 'inches')) +</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_node_point(color = "blue", size = 3) +</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_node_text(aes(label = name), vjust = 1, hjust = 1)+</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_void()</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># V(bigram_graph)$size &lt;- V(bigram_graph)$t_freq*10</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">layout_with_fr</span>(bigram_graph)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">get.edgelist</span>(bigram_graph,<span class="at">names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">qgraph.layout.fruchtermanreingold</span>(e,<span class="at">vcount=</span><span class="fu">vcount</span>(bigram_graph))</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>deg <span class="ot">&lt;-</span> <span class="fu">degree</span>(bigram_graph,<span class="at">mode=</span><span class="st">"all"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>fsize <span class="ot">&lt;-</span> <span class="fu">degree</span>(bigram_graph, <span class="at">mode=</span> <span class="st">"all"</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co">#png(filename=paste("assets/NetworkAnalysis_words_",Sys.Date(),".png", sep = ""), res = 100)</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bigram_graph,<span class="at">layout=</span>m, <span class="at">edge.arrow.size =</span>.<span class="dv">05</span>,<span class="at">vertex.color =</span> <span class="st">"pink"</span>, <span class="at">vertex.size =</span><span class="dv">500</span>,<span class="at">vertex.frame.color=</span><span class="st">"deeppink"</span>,<span class="at">vertex.label.color=</span><span class="st">"black"</span>, <span class="at">vertex.label.cex=</span>fsize<span class="sc">/</span><span class="dv">5</span>,<span class="at">vertex.label.dist=</span><span class="fl">0.8</span>,<span class="at">edge.curve =</span> <span class="fl">0.75</span>,<span class="at">edge.color=</span><span class="st">"skyblue"</span>,<span class="at">edge.label.family=</span><span class="st">"Arial"</span>, <span class="at">rescale=</span>F, <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">50</span>,<span class="dv">90</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>,<span class="dv">120</span>), <span class="at">asp =</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="eda_text_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bigram_graph,<span class="at">layout=</span>m, <span class="at">edge.arrow.size =</span>.<span class="dv">05</span>,<span class="at">vertex.color =</span> <span class="st">"pink"</span>, <span class="at">vertex.size =</span>deg<span class="sc">*</span><span class="dv">150</span>,<span class="at">vertex.frame.color=</span><span class="st">"deeppink"</span>,<span class="at">vertex.label.color=</span><span class="st">"black"</span>, <span class="at">vertex.label.cex=</span><span class="fl">0.55</span>,<span class="at">vertex.label.dist=</span><span class="fl">0.8</span>,<span class="at">edge.curve =</span> <span class="fl">0.75</span>,<span class="at">edge.color=</span><span class="st">"skyblue"</span>,<span class="at">edge.label.family=</span><span class="st">"Arial"</span>, <span class="at">rescale=</span>F, <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">50</span>,<span class="dv">90</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>,<span class="dv">120</span>), <span class="at">asp =</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dev.off()</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#png(filename=paste("assets/NetworkAnalysis_bubbles_",Sys.Date(),".png", sep = ""), res = 100)</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bigram_graph,<span class="at">layout=</span>m, <span class="at">edge.arrow.size =</span>.<span class="dv">05</span>,<span class="at">vertex.color =</span> <span class="st">"pink"</span>, <span class="at">vertex.size =</span>deg<span class="sc">*</span><span class="dv">150</span>,<span class="at">vertex.frame.color=</span><span class="st">"deeppink"</span>,<span class="at">vertex.label.color=</span><span class="st">"black"</span>, <span class="at">vertex.label.cex=</span><span class="fl">0.55</span>,<span class="at">vertex.label.dist=</span><span class="fl">0.8</span>,<span class="at">edge.curve =</span> <span class="fl">0.75</span>,<span class="at">edge.color=</span><span class="st">"skyblue"</span>,<span class="at">edge.label.family=</span><span class="st">"Arial"</span>, <span class="at">rescale=</span>F, <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">50</span>,<span class="dv">90</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">55</span>,<span class="dv">120</span>), <span class="at">asp =</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="eda_text_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
 </div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dev.off()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Editing network graphs: <a href="https://github.com/thomasp85/ggraph/issues/169">GitHub-Issue</a></p>
 

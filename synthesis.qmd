@@ -2,3 +2,14 @@
 title: "Synthesis"
 editor: visual
 ---
+
+![](https://raw.githubusercontent.com/burning-issues/burn_iss_comm-assets/83f844809a2ad806420c6b20304cf6bd6378d5af/fires_burning_issues.png){fig-alt="Six burning issues in fire and watershed science" fig-align="center"}
+
+Our initial analysis of survey responses suggest the following burning isses for the science of fires and watersheds: 
+
+1. The role of pyrogenic material in hydro-biogeochemical cycling
+2. Fire resilience and dependency in watershed ecosystems
+3. Fire impacts on terrestrial-aquatic linkages
+4. Fire impacts in hydrology
+5. Watershed recovery and management practices
+6. Integrating indigenous knowledge and culture in watershed science
