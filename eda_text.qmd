@@ -28,9 +28,15 @@ This is an exploratory data analysis (flesh out later)
 #library(graphlayouts)
 #library(qgraph)
 
-require(pacman)
-pacman::p_load(dplyr, tidytext, tidyverse,
-            widyr,igraph, ggraph, 
+# require(pacman)
+# pacman::p_load(dplyr, tidytext, tidyverse,
+#             widyr,igraph, ggraph, 
+#             wordcloud, reshape2, graphlayouts,
+#             pluralize, quanteda, qgraph, cowplot, readr)
+
+require(librarian)
+librarian::shelf(plyr, tidytext, tidyverse,
+            widyr,igraph, ggraph,
             wordcloud, reshape2, graphlayouts,
             pluralize, quanteda, qgraph, cowplot, readr)
 
