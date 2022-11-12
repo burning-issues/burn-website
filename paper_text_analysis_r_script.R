@@ -4,7 +4,7 @@
 
 # Setting up libraries
 require(librarian)
-librarian::shelf(dplyr, tidytext, tidyverse,
+librarian::shelf(dplyr, tidytext, tidyverse,stringr,stringi,
                  widyr,igraph, ggraph,
                  wordcloud, reshape2, graphlayouts,
                  pluralize, quanteda, qgraph, cowplot, readr, pdftools)
@@ -15,10 +15,58 @@ download.file("https://www.nature.com/articles/s41467-021-22747-3.pdf",
 
 # Reading our file
 ppr <- pdf_text("assets/wq_burning1.pdf")
+info <- pdf_info("assets/wq_burning1.pdf")
+ppr_txt <- data.frame(line = 1:8, text = ppr)
+
+subject <- info$keys$Subject
+domain <- info$keys$`CrossMarkDomains[1]`
+creator <- info$keys$Creator
+doi <- info$keys$doi
+cdomain <- info$keys$`CrossMarkDomains[2]`
+
+
 
 # Cleanning up the file
 
-ppr_cln <- ppr %>% 
+ppr_cln <- ppr_txt %>% 
+  unnest_tokens(output = word, input = text) %>% 
+  str_detect(word,paste(subject))
+%>% 
+  filter(str_detect(word,paste(domain))) %>% 
+  filter(str_detect(word,paste(creator))) %>% 
+  filter(str_detect(word,paste(doi))) %>% 
+  filter(str_detect(word,paste(cdomain))) 
+  
+  
+  str_replace(ppr_cln$word,paste(domain),"hey")
+  
+  
+  anti_join(stop_words, by = "word") %>% 
+  filter(str_detect(word,"[:alpha:]")) %>% 
+  count(word, sort = TRUE) %>% 
+  mutate(length = nchar(word)) %>% 
+  select(word, n) %>% 
+  mutate(rank = row_number(),
+         total=sum(n),
+         t_freq = n/total)
+
+ppr_cln %>% with(wordcloud(word,n,max.words = 400))
+
+
+
+
+
+
+
+
+ppr_cln <- pdftools::pdf_text(pdf = ppr) %>% 
+  str_to_lower() #%>% 
+  
+unnest_tokens(subject,txt)
+  
+a <- paste(subject, collapse = ' ')  
+  
+  
   str_split("\n") %>% 
   unlist() %>% 
   str_to_lower() %>%
