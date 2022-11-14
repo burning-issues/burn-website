@@ -18,6 +18,10 @@ ppr <- pdf_text("assets/wq_burning1.pdf")
 info <- pdf_info("assets/wq_burning1.pdf")
 ppr_txt <- data.frame(line = 1:8, text = ppr)
 
+# Extracting pdf metadata and removing it from text body
+
+
+
 a <- as.vector(unlist(strsplit(info$keys$Subject," ")))
 
 ppr_cln %>% ppr_txt %>% 

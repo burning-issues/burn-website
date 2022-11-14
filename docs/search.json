@@ -1,0 +1,170 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Content creators",
+    "section": "",
+    "text": "Allison Myers-Pigg and I, Francisco J. started this page to have a space for the collaborators of this project.\nTo get us started, here is a little bit more about us:"
+  },
+  {
+    "objectID": "about.html#allison-n.-myers-pigg",
+    "href": "about.html#allison-n.-myers-pigg",
+    "title": "Content creators",
+    "section": "Allison N. Myers-Pigg",
+    "text": "Allison N. Myers-Pigg\nallison-myers-pigg-pnnl.gov – allison.myers-pigg@pnnl.gov\n\nAllison Myers-Pigg is an Earth Scientist located at the Marine and Coastal Research Laboratory in Sequim and holds a joint appointment as a research assistant professor with University of Toledo Department of Environmental Sciences. She received her Ph.D. in Oceanography from Texas A&M University and her B.Sc. in Oceanography from the University of Washington. She joined PNNL in 2019. Her research focuses on biogeochemical fluxes across environmental interfaces and the impact of disturbances on the biogeochemical linkages between terrestrial and aquatic ecosystems."
+  },
+  {
+    "objectID": "about.html#francisco-j.-guerrero",
+    "href": "about.html#francisco-j.-guerrero",
+    "title": "Content creators",
+    "section": "Francisco J. Guerrero",
+    "text": "Francisco J. Guerrero\nguerrero-fg.github.io – francisco.guerrero@pnnl.gov\n\nFrancisco J. Guerrero is the Science and Communication Research Associate for the Integrated, Coordinated, Open, and Networked-ICON Science Cooperative at PNNL. He is a watershed ecologist and a science communicator. Since 2004, Francisco has been studying land to ocean carbon fluxes in small mountainous river systems. In his parallel role as communicator (since 2014), he has designed and implemented communication infrastructure (workshops, panels, working groups facilitation, etc.) at research-driven organizations from regional to national levels (e.g. universities, state agencies, and national research centers). Currently, Francisco is creating workflows for scientists and knowledge workers to integrate strategic communication tools along the scientific production lifecycle (from ideation to publication)."
+  },
+  {
+    "objectID": "about.html#morgan-barnes",
+    "href": "about.html#morgan-barnes",
+    "title": "Content creators",
+    "section": "Morgan Barnes",
+    "text": "Morgan Barnes"
+  },
+  {
+    "objectID": "about.html#emily-graham",
+    "href": "about.html#emily-graham",
+    "title": "Content creators",
+    "section": "Emily Graham",
+    "text": "Emily Graham"
+  },
+  {
+    "objectID": "about.html#samantha-grieger",
+    "href": "about.html#samantha-grieger",
+    "title": "Content creators",
+    "section": "Samantha Grieger",
+    "text": "Samantha Grieger"
+  },
+  {
+    "objectID": "about.html#allison-myers-pigg",
+    "href": "about.html#allison-myers-pigg",
+    "title": "Content creators",
+    "section": "Allison Myers-Pigg",
+    "text": "Allison Myers-Pigg"
+  },
+  {
+    "objectID": "about.html#j.-alan-roebuck",
+    "href": "about.html#j.-alan-roebuck",
+    "title": "Content creators",
+    "section": "J. Alan Roebuck",
+    "text": "J. Alan Roebuck"
+  },
+  {
+    "objectID": "about.html#timothy-scheibe",
+    "href": "about.html#timothy-scheibe",
+    "title": "Content creators",
+    "section": "Timothy Scheibe",
+    "text": "Timothy Scheibe"
+  },
+  {
+    "objectID": "about.html#jianqiu-zheng",
+    "href": "about.html#jianqiu-zheng",
+    "title": "Content creators",
+    "section": "Jianqiu Zheng",
+    "text": "Jianqiu Zheng"
+  },
+  {
+    "objectID": "about.html#allison-myers-pigg-1",
+    "href": "about.html#allison-myers-pigg-1",
+    "title": "Content creators",
+    "section": "Allison Myers-Pigg",
+    "text": "Allison Myers-Pigg"
+  },
+  {
+    "objectID": "about.html#francisco-guerrero",
+    "href": "about.html#francisco-guerrero",
+    "title": "Content creators",
+    "section": "Francisco Guerrero",
+    "text": "Francisco Guerrero"
+  },
+  {
+    "objectID": "about.html#morgan-barnes-1",
+    "href": "about.html#morgan-barnes-1",
+    "title": "Content creators",
+    "section": "Morgan Barnes",
+    "text": "Morgan Barnes"
+  },
+  {
+    "objectID": "about.html#j.-alan-roebuck-1",
+    "href": "about.html#j.-alan-roebuck-1",
+    "title": "Content creators",
+    "section": "J. Alan Roebuck",
+    "text": "J. Alan Roebuck"
+  },
+  {
+    "objectID": "about.html#timothy-scheibe-1",
+    "href": "about.html#timothy-scheibe-1",
+    "title": "Content creators",
+    "section": "Timothy Scheibe",
+    "text": "Timothy Scheibe"
+  },
+  {
+    "objectID": "about.html#jianqiu-zheng-1",
+    "href": "about.html#jianqiu-zheng-1",
+    "title": "Content creators",
+    "section": "Jianqiu Zheng",
+    "text": "Jianqiu Zheng"
+  },
+  {
+    "objectID": "about.html#cristina-santin",
+    "href": "about.html#cristina-santin",
+    "title": "Content creators",
+    "section": "Cristina Santin",
+    "text": "Cristina Santin"
+  },
+  {
+    "objectID": "about.html#kevin-bladon",
+    "href": "about.html#kevin-bladon",
+    "title": "Content creators",
+    "section": "Kevin Bladon",
+    "text": "Kevin Bladon\nAuthorship Guidelines"
+  },
+  {
+    "objectID": "eda_text.html",
+    "href": "eda_text.html",
+    "title": "Exploratory Text-Data Analysis",
+    "section": "",
+    "text": "This is an exploratory data analysis (flesh out later)\n\n\n\n\n\n\n\nOur initial dataset contains answers from 67 participants to the following questions:\nResearch Areas: Which research area do you identify with? Choose all that apply\nPressing questions: Articulate what are 2 of the most pressing questions that need to be addressed to further our understanding of wildfire impacts on biogeochemical cycling in watersheds.\nThe datafile is organized in long format with three columns for the variables: Unique Identifier “ID”, “question” and “answers”. The original excel file was saved as CSV-UTF-8 for text analysis purposes.\n\n\n\n\n\n\n\n \n  \n    ID \n    Question type \n    Answers \n  \n \n\n  \n    IA0001 \n    pressing-q \n    better understanding of the temporal scales of the different impacts as well as their potential interactions movement of materials ash, pyrogenic carbon, eroded soil between compartments  from hillslopes to the hydrological network as well as physical and biological alterations of those during the transport \n  \n  \n    IA0002 \n    pressing-q \n    How are flow pathways affected by wildfires  change of hydrological processes beyond vegetation removal?\nHow long do changes in hydrology and biogeochemistry last? including importance of forest disturbance history \n  \n  \n    IA0003 \n    pressing-q \n    How important are deeper groundwater flowpaths for prolonging elevated nutrient yields in burned watersheds? The vast majority of post-wildfire studies on biogeochemical cycling have focused on surface or shallow flowpaths, yet post-fire geochemical tracers indicate elevated contributions from deeper bedrock flowpaths during some hydroclimatic conditions Murphy  2018.\nWhat is the role of hyporheic flow through wildfire-deposited or reworked sediments in stream beds for enhancing or buffering elevated constituent loading in streams? Wildfires alter streambed sediments through aggradation, incision, and stabilization phases controlled by links between hydroclimatic conditions and geomorphic processes Moody, 2017. Despite the ubiquity of changes in streambed sediments, we know little about how these streambed changes and associated alteration of hyporheic flow changes biogeochemical cycling. \n  \n  \n    IA0001 \n    research-a \n    Nutrient Cycling, Pyrogenic Organic Matter, Soil Stability, Quality, Mineralogy, Pyrogenic Organic Matter Transport, Fluxes, Water Quality, Watershed Management \n  \n  \n    IA0002 \n    research-a \n    Water Routing, Hillslope Hydrology, Surface Water – Groundwater Interactions, Hydrological Modeling \n  \n  \n    IA0003 \n    research-a \n    Water Routing, Hillslope Hydrology, Hydrological Modeling \n  \n\n\n\n\n\n\n\n\n\nTokenization is the process of separating every single word contained in an answer and creating a new data file that will contain as many rows as total words in the original dataset.\nFor this part we are going to separate the answers for the first two questions in two data sets. This is because the research area answers easier to analyze than those for the pressing questions. The research area answers are separated by commas and contain no filler words (due to the format used for the original question in the google form).\n\n#For research area questions\nra_dat <- t_df%>%filter(question==\"research-a\")\n\n#For pressing questions\npq_dat <- t_df%>%filter(question==\"pressing-q\")\n\nLet’s use wordclouds to visualize the ouput of tokenizing the research area dataset. I had to adjust the size of the words using the scale parameter (maximum size = 4 by default). Otherwise certain long words would not be fit into the plot (see stackoverflow answer)\n\n\n\n\n\nPressing questions answers requires an extra step. We need to remove “filler words” a.k.a. stop words (e.g., a, the, this…). We also need to deal with plurals and singulars of the same word.\n\n\n\n\n\n\n \n  \n    Stop word \n    Lexicon \n  \n \n\n  \n    a \n    SMART \n  \n  \n    a's \n    SMART \n  \n  \n    able \n    SMART \n  \n  \n    about \n    SMART \n  \n  \n    above \n    SMART \n  \n  \n    according \n    SMART \n  \n  \n    you \n    onix \n  \n  \n    young \n    onix \n  \n  \n    younger \n    onix \n  \n  \n    youngest \n    onix \n  \n  \n    your \n    onix \n  \n  \n    yours \n    onix \n  \n\n\n\n\n\nMore info about lexicons and text categorization can be found here\nLet’s use wordclouds again to see the difference between the raw answers and “cleaned” answers for the pressing questions topic.\n\npq_tokens <- pq_dat %>% \n  unnest_tokens(output = word, input = answers)%>%\n  anti_join(stop_words, by = \"word\")%>%\n  filter(str_detect(word,\"[:alpha:]\"))%>%\n  distinct() %>% \n  count(word, sort = FALSE) %>% \n  mutate(length = nchar(word)) \nhead(pq_tokens)\n\n# A tibble: 6 × 3\n  word            n length\n  <chr>       <int>  <int>\n1 2017a           1      5\n2 21st            1      4\n3 ability         3      7\n4 abney           1      5\n5 absence         1      7\n6 acccurately     1     11\n\n\n\n\nFrom Stack overflow\n“The best way to do this is to use a tool to tag your plural nouns, and then to convert these to singular. Unlike the stemmer solution, this will not stem words such as stemming to stem, or quickly to quick, etc.I recommend using the spacyr package for this, which integrates nicely with quanteda.”\nYet, there are a few steps required for this to work, as detailed in Running Python Chunks in RStudio and rmarkdown. After that you could also watch this YouTube Tutorial.\nRaw Data\n\n\n\n\n\n\ngls <- as.data.frame(pq_dat %>%\n  unnest_tokens(output = word, input = answers)%>%\n  anti_join(stop_words, by = \"word\")%>%\n  filter(str_detect(word,\"[:alpha:]\"))%>%\n  distinct() %>% \n  count(word, sort = TRUE))\nhead(gls)\n\n            word  n\n1           fire 44\n2       wildfire 29\n3          water 21\n4        cycling 20\n5        impacts 20\n6 biogeochemical 18\n\n\n“Clean” Data\n\n\n\n\n\nWe used the function anti_join to remove stop words. We also want to remove numbers (like year of publication). To do so we use the combination of filter and str_detec to preserve only alphabetic characters \"[:alpha:]\". Finally, to make sure we are not double counting words, we use the function distinct.\nGlossary\nBesides identifying the words that are more frequently used in the answers, we could use our dataset to create a consistent glossary.\n\n\n\n\n\n\n \n  \n      \n    Word \n    Frequency \n  \n \n\n  \n    1 \n    fire \n    44 \n  \n  \n    2 \n    wildfire \n    29 \n  \n  \n    3 \n    water \n    21 \n  \n  \n    4 \n    cycling \n    20 \n  \n  \n    5 \n    impacts \n    20 \n  \n  \n    6 \n    biogeochemical \n    18 \n  \n  \n    1073 \n    world \n    1 \n  \n  \n    1074 \n    wu \n    1 \n  \n  \n    1075 \n    wuis \n    1 \n  \n  \n    1076 \n    xanes \n    1 \n  \n  \n    1077 \n    xas \n    1 \n  \n  \n    1078 \n    yosemite \n    1 \n  \n\n\n\n\n\nTo do so, we could use a frequency filter; including words above a frequency threshold (e.g. 2)\n\ngls_fw <- filter(gls, n > 2)\ngls_fwp <- rbind(head(gls_fw),tail(gls_fw))\ncolnames(gls_fwp) <- c(\"Word\", \"Frequency\")\nknitr::kable(gls_fwp,format=\"html\") %>% \n   html_table_width(c(200,200))\n\n\n\n\n\n \n  \n      \n    Word \n    Frequency \n  \n \n\n  \n    1 \n    fire \n    44 \n  \n  \n    2 \n    wildfire \n    29 \n  \n  \n    3 \n    water \n    21 \n  \n  \n    4 \n    cycling \n    20 \n  \n  \n    5 \n    impacts \n    20 \n  \n  \n    6 \n    biogeochemical \n    18 \n  \n  \n    201 \n    supply \n    3 \n  \n  \n    202 \n    traditional \n    3 \n  \n  \n    203 \n    transported \n    3 \n  \n  \n    204 \n    types \n    3 \n  \n  \n    205 \n    variation \n    3 \n  \n  \n    206 \n    vary \n    3 \n  \n\n\n\n\n\nWe still have a long list of words that are not necessarily associated to wildfires. We can look into different associations to get collections of keywords. Bit before that, we will start with term frequencies\n\n\n\n\n\n\n\n\n\n\n\n\nWords with low frequency make a large contribution to the text.\nWe observe deviations from the Zipf’s law both at the higher rank words (rare)and the lower rank words (more common). On the one hand, we have more words than expected at higher ranks, and less words than expected at lower ranks. This is perhaps the effect of abundant technical terms in the corpus analyzed here.\nAnalyzing word’s frequencies using Zipf’s law seems to have some drawbacks, see: Zipf’s law holds for phrases, not words. However the unnest_tokens function can also be applied to sentences.\n\n\n\n\n\n\n\n \n  \n    ID \n    question \n    sentences \n  \n \n\n  \n    IA0001 \n    pressing-q \n    better understanding of the temporal scales of the different impacts as well as their potential interactions movement of materials ash, pyrogenic carbon, eroded soil between compartments  from hillslopes to the hydrological network as well as physical and biological alterations of those during the transport \n  \n  \n    IA0002 \n    pressing-q \n    how are flow pathways affected by wildfires  change of hydrological processes beyond vegetation removal? \n  \n  \n    IA0002 \n    pressing-q \n    how long do changes in hydrology and biogeochemistry last? \n  \n  \n    IA0002 \n    pressing-q \n    including importance of forest disturbance history \n  \n  \n    IA0003 \n    pressing-q \n    how important are deeper groundwater flowpaths for prolonging elevated nutrient yields in burned watersheds? \n  \n  \n    IA0003 \n    pressing-q \n    the vast majority of post-wildfire studies on biogeochemical cycling have focused on surface or shallow flowpaths, yet post-fire geochemical tracers indicate elevated contributions from deeper bedrock flowpaths during some hydroclimatic conditions murphy  2018. \n  \n\n\n\n\n\n\n\nA function from the tidytext package that aims to find the most common words in a text by decreasing the weight of the most common terms and increasing it for the less common (i.e. meeting in the middle scenario)\n“The logic of tf-idf is that the words containing the greatest information about a particular document are the words that appear many times in that document, but in relatively few others.”\nIt is meant to be for document intercomparison. Here we could use it for questions, abstracts, or even journal articles.\n\n\n\n\nText mining with R - Importing PDF and Text Detection\n\n\n\n\n\n\npq_digrams <- pq_dat %>%\n  filter(str_detect(answers,\"[:alpha:]\"))%>%\n  unnest_tokens(bigram, answers, token = \"ngrams\", n = 2) %>% \n  separate(bigram,c(\"word1\", \"word2\"), sep = \" \") %>% \n  filter(!word1 %in% stop_words$word) %>% \n  filter(!word2 %in% stop_words$word) %>% \n  count(word1, word2, sort = TRUE) %>% \n  mutate(rank = row_number(),\n         total=sum(n),\n         t_freq = n/total)\nhead(pq_digrams)\n\n# A tibble: 6 × 6\n  word1          word2       n  rank total  t_freq\n  <chr>          <chr>   <int> <int> <int>   <dbl>\n1 post           fire       25     1  1444 0.0173 \n2 biogeochemical cycling    18     2  1444 0.0125 \n3 debris         flows      12     3  1444 0.00831\n4 organic        matter     10     4  1444 0.00693\n5 water          quality     9     5  1444 0.00623\n6 climate        change      8     6  1444 0.00554\n\n#Distribution of frequency values\npq_digrams %>% filter(rank < 26) %>% \n  unite(bigram, word1, word2, sep = \" \") %>% \n  ggplot(aes(t_freq, fct_reorder(bigram, t_freq), fill = t_freq)) +\n  geom_col(show.legend = FALSE) +\n  labs(x = \"Frequency\", y = NULL)\n\n\n\n#Zipf's law for survey answers\npq_digrams %>% \n  ggplot(aes(rank,t_freq)) + \n  geom_line(size = 1.1, alpha = 0.8, show.legend = FALSE) + \n  geom_abline(intercept = -0.62, slope = -1.1, \n              color = \"gray50\", linetype = 2) +\n  scale_x_log10() +\n  scale_y_log10()+\n  xlab(\"Rarity\")+\n  ylab(\"Frequency\")\n\n\n\n\n\n\n\n\n#library(igraph)\n#library(graphlayouts)\n#library(qgraph)\n\nbigram_graph <- pq_digrams %>%\n  filter(rank < 101) %>%\n  graph_from_data_frame()\nbigram_graph\n\nIGRAPH 2c28817 DN-- 123 100 -- \n+ attr: name (v/c), n (e/n), rank (e/n), total (e/n), t_freq (e/n)\n+ edges from 2c28817 (vertex names):\n [1] post          ->fire        biogeochemical->cycling    \n [3] debris        ->flows       organic       ->matter     \n [5] water         ->quality     climate       ->change     \n [7] pyrogenic     ->carbon      fire          ->regimes    \n [9] wildfire      ->impacts     pyrogenic     ->organic    \n[11] aquatic       ->ecosystems  black         ->carbon     \n[13] fire          ->severity    microbial     ->communities\n[15] carbon        ->storage     fire          ->impacts    \n+ ... omitted several edges\n\nset.seed(2017)\n\n# a <- grid::arrow(type = \"closed\", length = unit(.15, \"inches\"))\n# \n# ggraph(bigram_graph, layout = \"fr\") +\n#   geom_edge_link(show.legend = FALSE,\n#                  arrow = a, end_cap = circle(.07, 'inches')) +\n#   geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,\n#                  arrow = a, end_cap = circle(.035, 'inches')) +\n#   geom_node_point(color = \"blue\", size = 3) +\n#   geom_node_text(aes(label = name), vjust = 1, hjust = 1)+\n#   theme_void()\n# V(bigram_graph)$size <- V(bigram_graph)$t_freq*10\nl <- layout_with_fr(bigram_graph)\ne <- get.edgelist(bigram_graph,names=FALSE)\nm <- qgraph.layout.fruchtermanreingold(e,vcount=vcount(bigram_graph))\ndeg <- degree(bigram_graph,mode=\"all\")\nfsize <- degree(bigram_graph, mode= \"all\")\n\n#png(filename=paste(\"assets/NetworkAnalysis_words_\",Sys.Date(),\".png\", sep = \"\"), res = 100)\n\nplot(bigram_graph,layout=m, edge.arrow.size =.05,vertex.color = \"pink\", vertex.size =500,vertex.frame.color=\"deeppink\",vertex.label.color=\"black\", vertex.label.cex=fsize/5,vertex.label.dist=0.8,edge.curve = 0.75,edge.color=\"skyblue\",edge.label.family=\"Arial\", rescale=F, axes = FALSE, ylim = c(-50,90), xlim = c(-55,120), asp =0)\n\n\n\n#dev.off()\n\n#png(filename=paste(\"assets/NetworkAnalysis_bubbles_\",Sys.Date(),\".png\", sep = \"\"), res = 100)\n\nplot(bigram_graph,layout=m, edge.arrow.size =.05,vertex.color = \"pink\", vertex.size =deg*150,vertex.frame.color=\"deeppink\",vertex.label.color=\"black\", vertex.label.cex=0.55,vertex.label.dist=0.8,edge.curve = 0.75,edge.color=\"skyblue\",edge.label.family=\"Arial\", rescale=F, axes = FALSE, ylim = c(-50,90), xlim = c(-55,120), asp =0)\n\n\n\n#dev.off()\n\nEditing network graphs: GitHub-Issue"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Burning Questions: The Role of Wildfires in Watershed Functioning",
+    "section": "",
+    "text": "Welcome!\nThis page is the user-friendly face of our GitHub repository for this project.\nWith your help we want to identify top priorities and unanswered questions on the cascading impacts of fires in watersheds.\nMore specifically, our objective is to identify, assess, and collate currently unanswered research questions on the ecosystem biogeochemical impacts of wildfires.\nWe will synthesize emergent themes and identify key research priorities in this field. We seek to do this from a community perspective and solicit researchers to share their viewpoints.\n\n\nOur initial survey\nWe have got responses from 67 wildfire scientists to the following questions:\n\nIn your opinion, which are 2 of the most pressing questions that need to be addressed to further our understanding of wildfire impacts on biogeochemical cycling in watersheds.\nWhat are the most important pathways towards better integrating fire science across scientific disciplines?\nWhat are the key roadblocks towards a more holistic understanding of the cumulative spatiotemporal impacts of wildfires in terrestrial and aquatic environments across both short and long timescales?\n\n\n\nGetting involved\nIf you are interested in getting involved with this project or future efforts related to this work, please contact us at: burning.issues.community@pnnl.gov"
+  },
+  {
+    "objectID": "pdf_text.html",
+    "href": "pdf_text.html",
+    "title": "Text Analysis of a Research Article",
+    "section": "",
+    "text": "A quick text analysis of: Wildfires increasingly impact western US fluvial networks by Ball et al., 2021."
+  },
+  {
+    "objectID": "pdf_text.html#downloading-the-paper",
+    "href": "pdf_text.html#downloading-the-paper",
+    "title": "Text Analysis of a Research Article",
+    "section": "Downloading the paper",
+    "text": "Downloading the paper\n\n# download.file(\"https://www.nature.com/articles/s41467-021-22747-3.pdf\",\"assets/wq_burning.pdf\", mode = \"wb\")\nppr <- pdf_text(\"assets/wq_burning.pdf\")\n#You may need to disconnect the VPN for this line to work"
+  },
+  {
+    "objectID": "synthesis.html",
+    "href": "synthesis.html",
+    "title": "Synthesis",
+    "section": "",
+    "text": "Our initial (manual) analysis of survey responses suggest the following burning issues for the science of fires and watersheds:\n\nThe role of pyrogenic material in hydro-biogeochemical cycling\nFire resilience and dependency in watershed ecosystems\nFire impacts on terrestrial-aquatic linkages\nFire impacts in hydrology\nWatershed recovery and management practices\nIntegrating indigenous knowledge and culture in watershed science"
+  },
+  {
+    "objectID": "timeline.html",
+    "href": "timeline.html",
+    "title": "Timeline",
+    "section": "",
+    "text": "Below you can find the general timeline for this project. There is still time to get involved! If you are interested, please reach out to us at: burning.issues.community@pnnl.gov"
+  }
+]
