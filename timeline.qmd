@@ -3,4 +3,6 @@ title: "Timeline"
 editor: visual
 ---
 
+Below you can find the general timeline for this project. There is still time to get involved! If you are interested, please reach out to us at: burning.issues.community@pnnl.gov
+
 ![](https://raw.githubusercontent.com/burning-issues/burn_iss_comm-assets/83f844809a2ad806420c6b20304cf6bd6378d5af/wildfires_timeline.png){fig-alt="Timeline for the project from winter 2020 to summer 2023" fig-align="center"}
