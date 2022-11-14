@@ -6,7 +6,7 @@ Allison Myers-Pigg and I, Francisco J. started this page to have a space for the
 
 To get us started, here is a little bit more about us:
 
-## Allison Myers-Pigg
+## Allison N. Myers-Pigg
 
 [allison-myers-pigg-pnnl.gov](https://www.pnnl.gov/people/allison-myers-pigg) -- **allison.myers-pigg@pnnl.gov**
 
@@ -22,4 +22,34 @@ Allison Myers-Pigg is an Earth Scientist located at the Marine and Coastal Resea
 
 Francisco J. Guerrero is the Science and Communication Research Associate for the Integrated, Coordinated, Open, and Networked-[ICON](https://www.pnnl.gov/projects/icon-science) Science Cooperative at PNNL. He is a watershed ecologist and a science communicator. 
 Since 2004, Francisco has been studying land to ocean carbon fluxes in small mountainous river systems. In his parallel role as communicator (since 2014), he has designed and implemented communication infrastructure (workshops, panels, working groups facilitation, etc.) at research-driven organizations from regional to national levels (e.g. universities, state agencies, and national research centers). Currently, Francisco is creating workflows for scientists and knowledge workers to integrate strategic communication tools along the scientific production lifecycle (from ideation to publication).
+
+# Survey Design Committee 
+
+The following team of scientists designed the survey questions. 
+
+## Morgan Barnes  
+## Emily Graham 
+## Samantha Grieger   
+## Allison Myers-Pigg 
+## J. Alan Roebuck  
+## Timothy Scheibe  
+## Jianqiu Zheng  
+
+# Planning Committee 
+
+The following team of scientists are currently involved in the organization and planning of this effort. 
+
+## Allison Myers-Pigg 
+## Francisco Guerrero
+## Morgan Barnes  
+## J. Alan Roebuck  
+## Timothy Scheibe  
+## Jianqiu Zheng 
+
+# Section Leads
+
+The following scientists are external to the planning team and currently serve advisory roles in this project.
+
+## Cristina Santin
+## Kevin Bladon
 
