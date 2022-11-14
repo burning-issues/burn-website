@@ -16,8 +16,13 @@ We will synthesize emergent themes and identify key research priorities in this 
 
 # Our initial survey
 
-We have got responses from more than 60 wildfire scientists to the following questions: 
+We have got responses from 67 wildfire scientists to the following questions: 
 
 * In your opinion, which are 2 of the most **pressing questions** that need to be addressed to further our understanding of wildfire impacts on biogeochemical cycling in watersheds.
 * What are the most important **pathways** towards better integrating fire science across scientific disciplines?
 * What are the key **roadblocks** towards a more holistic understanding of the cumulative spatiotemporal impacts of wildfires in terrestrial and aquatic environments across both short and long timescales?
+
+# Getting involved
+
+If you are interested in getting involved with this project or future efforts related to this work, please contact us at: burning.issues.community@pnnl.gov
+
