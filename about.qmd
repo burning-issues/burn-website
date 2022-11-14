@@ -12,7 +12,7 @@ To get us started, here is a little bit more about us:
 
 <img src="https://raw.githubusercontent.com/burning-issues/burn_iss_comm-assets/83f844809a2ad806420c6b20304cf6bd6378d5af/Picture2.png" align="right" width="23%"/>
 
-Allison Myers-Pigg contributes to the development and implementation of the disturbances research campaign as part of the Subsurface Research Science Focus Area project. Her role includes contributing to research activities, fieldwork, laboratory experiments, and study design, and she is a key contributor towards investigation of mechanisms and hydrobiogeochemical impacts of watershed disturbances.
+Allison Myers-Pigg is an Earth Scientist located at the Marine and Coastal Research Laboratory in Sequim and holds a joint appointment as a research assistant professor with University of Toledo Department of Environmental Sciences. She received her Ph.D. in Oceanography from Texas A&M University and her B.Sc. in Oceanography from the University of Washington. She joined PNNL in 2019. Her research focuses on biogeochemical fluxes across environmental interfaces and the impact of disturbances on the biogeochemical linkages between terrestrial and aquatic ecosystems. 
 
 ## Francisco J. Guerrero
 
