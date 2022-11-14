@@ -6,7 +6,7 @@ title: "Burning Questions: The Role of Wildfires in Watershed Functioning"
 
 # Welcome!
 
-This site is an invitation to collaborate in "Shaping the future of wildfire science".
+This page is the user-friendly face of our GitHub repository for this project. 
 
 With your help we want to identify top priorities and unanswered questions on the cascading impacts of fires in watersheds.
 
