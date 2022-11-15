@@ -9,63 +9,36 @@ librarian::shelf(dplyr, tidytext, tidyverse,stringr,stringi,
                  wordcloud, reshape2, graphlayouts,
                  pluralize, quanteda, qgraph, cowplot, readr, pdftools)
 
-# Downloading the file
-download.file("https://www.nature.com/articles/s41467-021-22747-3.pdf", 
-              destfile = "~/GitHub/burn_iss-website/assets/wq_burning1.pdf", mode = "wb")
+# # Downloading the file
+# download.file("https://www.nature.com/articles/s41467-021-22747-3.pdf", 
+#               destfile = "~/GitHub/burn_iss-website/assets/wq_burning1.pdf", mode = "wb")
 
 # Reading our file
-ppr <- pdf_text("assets/wq_burning1.pdf")
-info <- pdf_info("assets/wq_burning1.pdf")
-ppr_txt <- data.frame(line = 1:8, text = ppr)
+ppr <- pdf_text("assets/wq_burning.pdf")
+info <- pdf_info("assets/wq_burning.pdf")
+ppr_txt0 <- unlist(ppr)
+ppr_txt <- data.frame(line = 1:8, text = ppr_txt0)
 
 # Extracting pdf metadata and removing it from text body
 
-
-
-a <- as.vector(unlist(strsplit(info$keys$Subject," ")))
-
-ppr_cln %>% ppr_txt %>% 
-  sub(paste(a, collapse = '|'),'',ppr_txt$text)
-
-
-ppr_txt$text <- sub(paste(a, collapse = '|'),'',ppr_txt)
-
-
-ppr_cln <- ppr_txt %>% 
-  unnest_tokens(output = word, input = text)
-
-
-subject <- info$keys$Subject
-domain <- info$keys$`CrossMarkDomains[1]`
-creator <- info$keys$Creator
+sbj <- unlist(strsplit(info$keys$Subject, " "))
+dmn <- unlist(strsplit(info$keys$`CrossMarkDomains[1]`," "))
+ctr <- unlist(strsplit(info$keys$Creator, " "))
 doi <- info$keys$doi
-cdomain <- info$keys$`CrossMarkDomains[2]`
+cdm <- info$keys$`CrossMarkDomains[2]`
 
-a <- as.vector(unlist(strsplit(info$keys$Subject," ")))
-b <- strsplit(info$keys$Subject," ")
-
-
-# Cleanning up the file
-ppr_txt1 <- ppr_txt %>% 
-  filter(str_remove_all(text,paste(b,collapse = "|")))
- 
-ppr_txt2 <- ppr_txt %>%
-  filter(str_detect(text,paste(b,collapse = "|")))
+# Cleaning pdf file
+ppr_txt$text <- sub(paste(sbj, collapse = '|'),'',ppr_txt)
+ppr_txt$text <- sub(paste(dmn, collapse = '|'),'',ppr_txt)
+ppr_txt$text <- sub(paste(ctr, collapse = '|'),'',ppr_txt)
+# ppr_txt$text <- sub(paste(doi),'',ppr_txt)#long exec time
+# ppr_txt$text <- sub(paste(cdm, collapse = '|'),'',ppr_txt)#long exec time
 
 
-ppr_cln <- ppr_txt %>% 
-  # unnest_tokens(output = word, input = text) %>% 
-  filter(str_detect(ppr_txt,paste(a,collapse = "|")),negate = TRUE)
-%>% 
-  filter(str_detect(word,paste(domain))) %>% 
-  filter(str_detect(word,paste(creator))) %>% 
-  filter(str_detect(word,paste(doi))) %>% 
-  filter(str_detect(word,paste(cdomain))) 
-  
-  
-  str_replace(ppr_cln$word,paste(domain),"hey")
-  
-  
+#Word cloud
+
+ppr_cln <- ppr_txt%>% 
+  unnest_tokens(output = word, input = text) %>% 
   anti_join(stop_words, by = "word") %>% 
   filter(str_detect(word,"[:alpha:]")) %>% 
   count(word, sort = TRUE) %>% 
@@ -84,27 +57,5 @@ ppr_cln %>% with(wordcloud(word,n,max.words = 400))
 
 
 
-ppr_cln <- pdftools::pdf_text(pdf = ppr) %>% 
-  str_to_lower() #%>% 
-  
-unnest_tokens(subject,txt)
-  
-a <- paste(subject, collapse = ' ')  
-  
-  
-  str_split("\n") %>% 
-  unlist() %>% 
-  str_to_lower() %>%
-  str_replace_all("\n"," ") %>%
-  str_remove_all(",") %>% 
-  str_replace_all("\\s{2,}", " ") %>%
-  str_replace_all("[:digit:]", " ") %>%
-  str_replace_all("[:punct:]", " ") %>%
-  str_trim()
-
-
-ppr_txt <- data.frame(line = 1:721, text = ppr_cln) %>% 
-  filter(text != "") %>% 
-  filter(str_length(text)>2)
   
 
