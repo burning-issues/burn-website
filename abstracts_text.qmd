@@ -13,17 +13,19 @@ assembled based in survey responses
 
 ```{r echo = FALSE, warning=FALSE, message=FALSE}
 require(librarian)
-librarian::shelf(dplyr, plyr, tidytext, tidyverse,
+librarian::shelf(dplyr, tidytext, tidyverse,
             widyr,igraph, ggraph,
             wordcloud, reshape2, graphlayouts,
-            pluralize, quanteda, qgraph, cowplot, readr)
+            pluralize, quanteda, qgraph, cowplot, readr,spacyr)
+spacy_install()
+spacy_initialize()
 
 #Function to adjust table width:
   
-html_table_width <- function(kable_output, width){
-  width_html <- paste0(paste0('<col width="', width, '">'), collapse = "\n")
-  sub("<table>", paste0("<table>\n", width_html), kable_output)
-}  
+# html_table_width <- function(kable_output, width){
+#   width_html <- paste0(paste0('<col width="', width, '">'), collapse = "\n")
+#   sub("<table>", paste0("<table>\n", width_html), kable_output)
+# }  
 
 # Source: https://github.com/rstudio/bookdown/issues/122
 ```
@@ -36,15 +38,16 @@ Our initial dataset contains 82 abstracts from the papers...
 **Research Areas**: Which research area do you identify with? Choose all that apply
 
 
-```{r echo=FALSE}
-abs_df <- read_csv("assets/data/fire_science_future.csv",show_col_types = FALSE)
-abs_df1 <- dplyr::select(abs_df,Key,Author,Title,`Publication Title`,`Abstract Note`)
-abs_df1 <- rename(abs_df1,
-                  id = Key,
-                  author = Author,
-                  title = Title,
-                  journal = `Publication Title`,
-                  abstract = `Abstract Note`)
+```{r echo= FALSE}
+ttl_df1 <- read.csv("assets/data/fire_science_future.csv")
+ttl_df1 <- select(ttl_df1,Key,Title,Author,Publication.Title,Abstract.Note)
+ttl_df1 <- dplyr::rename(ttl_df1,
+               id = Key,
+               title = Title,
+               author = Author,
+               journal = Publication.Title,
+               abstract = Abstract.Note)
+glimpse(ttl_df1)
 ```
 
 ## Tokenization
@@ -54,16 +57,33 @@ abs_df1 <- rename(abs_df1,
 Let's use wordclouds to visualize the ouput of tokenizing the titles. I had to adjust the size of the words using the scale parameter (maximum size = 4 by default). Otherwise certain long words would not be fit into the plot (see [stackoverflow answer](https://www.tidytextmining.com/sentiment.html?q=cloud#wordclouds))
 
 ```{r echo=FALSE}
-abs_df1%>% select(id,title) %>% 
+ttl_df1%>% select(id,title) %>% 
   unnest_tokens(output = word, input = title)%>%
   anti_join(stop_words, by = "word")%>%
   filter(str_detect(word,"[:alpha:]"))%>%
-  count(word, sort = TRUE)%>%
-  distinct() %>% 
-  # filter(word!="fire") %>% 
-  # filter(word!= "Wildfire") %>% 
-  with(wordcloud(word,n,scale = c(4, .07),max.words = Inf,min.freq=1))
+  dplyr::count(word, sort = TRUE)%>%
+  distinct() %>%
+  filter(word!="fire") %>%
+  filter(word!= "wildfire") %>%
+  with(wordcloud(word,n,scale = c(4, .05),max.words = Inf,min.freq=1))
 ```
+Action items:
+1. Homogenize singulars and plurals
+2. To find a lexicon for most common words used in research titles in environmental
+science. Ask Sammeera(?)
+
+```{r echo=FALSE}
+ttl_df1%>% select(id,abstract) %>% 
+  unnest_tokens(output = word, input = abstract)%>%
+  anti_join(stop_words, by = "word")%>%
+  filter(str_detect(word,"[:alpha:]"))%>%
+  dplyr::count(word, sort = TRUE)%>%
+  distinct() %>%
+  filter(word!="fire") %>%
+  filter(word!= "Wildfire") %>%
+  with(wordcloud(word,n,scale = c(4, .05),max.words = 250,min.freq=10))
+```
+
 
 Pressing questions answers requires an extra step. We need to remove "filler words" a.k.a. **stop words** (e.g., a, the, this...). We also need to deal with plurals and singulars of the same word. 
 

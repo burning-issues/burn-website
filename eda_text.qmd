@@ -11,29 +11,6 @@ knitr::opts_chunk$set(echo = TRUE)
 This is an exploratory data analysis (flesh out later)
 
 ```{r echo = FALSE, warning=FALSE, message=FALSE}
-#library(dplyr)
-#library(tidytext)
-#library(tidyverse)
-#library(widyr)
-#library(igraph)
-#library(ggraph)
-#library(wordcloud)
-#library(reshape2)
-#library(graphlayouts)
-#library(pluralize)
-#library(quanteda)
-# library(spacyr)
-# library(reticulate)
-#library(igraph)
-#library(graphlayouts)
-#library(qgraph)
-
-# require(pacman)
-# pacman::p_load(dplyr, tidytext, tidyverse,
-#             widyr,igraph, ggraph, 
-#             wordcloud, reshape2, graphlayouts,
-#             pluralize, quanteda, qgraph, cowplot, readr)
-
 require(librarian)
 librarian::shelf(plyr, tidytext, tidyverse,
             widyr,igraph, ggraph,
