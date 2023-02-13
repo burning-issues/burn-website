@@ -114,6 +114,7 @@ Yet, there are a few steps required for this to work, as detailed in [Running Py
 pq_dat %>%
   unnest_tokens(output = word, input = answers)%>%
   distinct() %>% 
+  # rowwise() %>% mutate(word = singularize(word)) %>% 
   count(word, sort = TRUE) %>% 
   with(wordcloud(word,n, scale = c(4, .1)))
 ```
