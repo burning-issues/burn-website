@@ -39,7 +39,6 @@ Our initial dataset contains answers from 67 participants to the following quest
 
 The datafile is organized in long format with three columns for the variables: Unique Identifier "ID", "question" and "answers". The original excel file was saved as CSV-UTF-8 for text analysis purposes.
 
-
 ```{r echo=FALSE}
 t_df <- read_csv("assets/data/wildfires-survey-answers_formatted.csv",show_col_types = FALSE)
 t_df1 <- as.data.frame(rbind(t_df[c(1:3),],t_df[c(68:71),], row.names = FALSE))
@@ -72,7 +71,7 @@ ra_dat%>%
   with(wordcloud(word,n, scale = c(3, .07)))
 ```
 
-Pressing questions answers requires an extra step. We need to remove "filler words" a.k.a. **stop words** (e.g., a, the, this...). We also need to deal with plurals and singulars of the same word. 
+Pressing questions answers requires an extra step. We need to remove "filler words" a.k.a. **stop words** (e.g., a, the, this...). We also need to deal with plurals and singulars of the same word.
 
 ```{r echo=FALSE}
 stp_eg <- as.data.frame(rbind(head(stop_words),
@@ -86,7 +85,6 @@ knitr::kable(stp_eg,format="html") %>%
 More info about lexicons and text categorization can be found [here](https://juliasilge.github.io/tidytext/reference/stop_words.html)
 
 Let's use wordclouds again to see the difference between the raw answers and "cleaned" answers for the pressing questions topic.
-
 
 ```{r}
 pq_tokens <- pq_dat %>% 
@@ -107,7 +105,6 @@ From [Stack overflow](https://stackoverflow.com/questions/55772761/is-there-a-be
 
 Yet, there are a few steps required for this to work, as detailed in [Running Python Chunks in RStudio and rmarkdown](). After that you could also watch this [YouTube Tutorial](https://www.youtube.com/watch?v=gn8oJ8FMSWY&ab_channel=RenzoCaceresRossi).
 
-
 ***Raw Data***
 
 ```{r echo=FALSE}
@@ -118,7 +115,6 @@ pq_dat %>%
   count(word, sort = TRUE) %>% 
   with(wordcloud(word,n, scale = c(4, .1)))
 ```
-
 
 ```{r}
 gls <- as.data.frame(pq_dat %>%
@@ -146,7 +142,7 @@ We used the function `anti_join` to remove stop words. We also want to remove nu
 
 ***Glossary***
 
-Besides identifying the words that are more frequently used in the answers, we could use our dataset to create a consistent glossary. 
+Besides identifying the words that are more frequently used in the answers, we could use our dataset to create a consistent glossary.
 
 ```{r echo=FALSE}
 gls <- as.data.frame(pq_dat %>%
@@ -203,12 +199,12 @@ eda_words %>%
   scale_y_log10()
 
 ```
+
 Words with low frequency make a large contribution to the text.
 
+We observe deviations from the Zipf's law both at the higher rank words (rare)and the lower rank words (more common). On the one hand, we have more words than expected at higher ranks, and less words than expected at lower ranks. This is perhaps the effect of abundant technical terms in the corpus analyzed here.
 
-We observe deviations from the Zipf's law both at the higher rank words (rare)and the lower rank words (more common). On the one hand, we have more words than expected at higher ranks, and less words than expected at lower ranks. This is perhaps the effect of abundant technical terms in the corpus analyzed here. 
-
-Analyzing word's frequencies using Zipf's law seems to have some drawbacks, see: [Zipf’s law holds for phrases, not words](https://www.nature.com/articles/srep12209). However the `unnest_tokens` function can also be applied to sentences. 
+Analyzing word's frequencies using Zipf's law seems to have some drawbacks, see: [Zipf's law holds for phrases, not words](https://www.nature.com/articles/srep12209). However the `unnest_tokens` function can also be applied to sentences.
 
 ```{r echo=FALSE}
 pq_snt <- pq_dat %>%
@@ -219,14 +215,13 @@ knitr::kable(pq_snt_s,format="html") %>%
    html_table_width(c(100,100,400))
 ```
 
-
 ### The `bind_tf_idf` function
 
 A function from the `tidytext` package that aims to find the most common words in a text by decreasing the weight of the most common terms and increasing it for the less common (i.e. meeting in the middle scenario)
 
 "The logic of tf-idf is that the words containing the greatest information about a particular document are the words that appear many times in that document, but in relatively few others."
 
-It is meant to be for document intercomparison. Here we could use it for questions, abstracts, or even journal articles. 
+It is meant to be for document intercomparison. Here we could use it for questions, abstracts, or even journal articles.
 
 ## Text mining with multiple pdf's
 
@@ -313,4 +308,4 @@ plot(bigram_graph,layout=m, edge.arrow.size =.05,vertex.color = "pink", vertex.s
 
 ```
 
-Editing network graphs: [GitHub-Issue](https://github.com/thomasp85/ggraph/issues/169) 
+Editing network graphs: [GitHub-Issue](https://github.com/thomasp85/ggraph/issues/169)
