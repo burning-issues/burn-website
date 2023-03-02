@@ -2,7 +2,8 @@ require(librarian)
 librarian::shelf(plyr, tidytext, tidyverse,
                  widyr,igraph, ggraph,
                  wordcloud, reshape2, graphlayouts,
-                 pluralize, quanteda, qgraph, cowplot, readr)
+                 pluralize, quanteda, qgraph, cowplot, readr,
+                 ggwordcloud)
 
 t_df <- as_tibble(read_csv("assets/data/wildfires_survey_all_answers.csv",show_col_types = FALSE))
 
@@ -14,26 +15,23 @@ aq_tokens <- t_df %>%
   filter(str_detect(word,"[:alpha:]"))%>%
   rowwise() %>% mutate(word = if_else(word!="data",singularize(word),"data")) %>%
   distinct() %>% 
+  group_by(question) %>% 
   count(word, sort = FALSE) %>% 
   mutate(length = nchar(word)) 
 
 head(aq_tokens)
+summary(aq_tokens)
 
+# Using ggwordclouds:
+# https://cran.r-project.org/web/packages/ggwordcloud/vignettes/ggwordcloud.html
 
-aq_tokens1 <- t_df %>% 
-select(everything()) %>% 
-  ungroup() %>% 
-  mutate(text = unnest_tokens(output = word, input = answers, drop = FALSE)) %>% 
-  anti_join(stop_words, by = "word")%>%
-  filter(str_detect(text,"[:alpha:]"))%>%
-  rowwise() %>% mutate(text = if_else(word!="data",singularize(word),"data")) %>%
-  distinct() %>% 
-  count(text, sort = FALSE) %>% 
-  mutate(length = nchar(text)) 
+p <- ggplot(filter(aq_tokens,n>2), 
+            aes(label = word, 
+                size = n, 
+                color = question)) +
+  geom_text_wordcloud(area_corr_power = 1) +
+  scale_radius(range = c(0, 20),
+               limits = c(0, NA)) +
+  facet_wrap(~question) 
+p
 
-head(aq_tokens1)
-
-
-%>% 
-  with(wordcloud(word,n, scale = c(4, .05)))
-head(aq_tokens)
