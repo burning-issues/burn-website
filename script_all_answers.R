@@ -6,9 +6,10 @@ librarian::shelf(plyr, tidytext, tidyverse,
                  ggwordcloud)
 
 t_df <- as_tibble(read_csv("assets/data/wildfires_survey_all_answers.csv",show_col_types = FALSE))
+t_df_wa <- filter(t_df,question!="research-a")
+t_df_wa$question <- factor(t_df_wa$question, levels = c("pressing-q","roadblocks","pathways"))
 
-
-aq_tokens <- t_df %>% 
+aq_tokens <- t_df_wa %>% 
   ungroup() %>% 
   unnest_tokens(output = word, input = answers, drop = FALSE)%>%
   anti_join(stop_words, by = "word")%>%
@@ -36,7 +37,7 @@ p <- ggplot(filter(aq_wofire,n>2),
   geom_text_wordcloud(area_corr_power = 1) +
   scale_radius(range = c(0, 20),
                limits = c(0, NA)) +
-  facet_wrap(~question) 
+  facet_wrap(~question, ncol = 3) 
 p
 
 
