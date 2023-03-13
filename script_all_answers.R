@@ -42,35 +42,37 @@ p
 
 
 # Bi-grams
-pq_digrams <- t_df %>%
-  ungroup() %>% 
+
+# Pressing Questions
+t_pq <- filter(t_df_wa,question=="pressing-q")
+
+pq_trigrams <- t_pq%>%
+  ungroup() %>%
   filter(str_detect(answers,"[:alpha:]"))%>%
-  unnest_tokens(bigram, answers, token = "ngrams", n = 2) %>% 
-  separate(bigram,c("word1", "word2"), sep = " ") %>% 
+  unnest_tokens(trigram, answers, token = "ngrams", n = 3) %>% 
+  separate(trigram,c("word1", "word2","word3"), sep = " ") %>% 
   filter(!word1 %in% stop_words$word) %>% 
   filter(!word2 %in% stop_words$word) %>% 
-  group_by(question) %>% 
-  count(word1, word2, sort = TRUE) %>% 
+  filter(!word3 %in% stop_words$word) %>% 
+  # group_by(question) %>% 
+  count(word1, word2, word3,sort = TRUE) %>% 
   mutate(rank = row_number(),
          total=sum(n),
          t_freq = n/total)
-head(pq_digrams)
+head(pq_trigrams)
 
 
-pq_digrams %>% 
-  # group_by(question) %>% 
-  filter(rank < 10) %>% 
-  unite(bigram, word1, word2, sep = " ") %>% 
-  ggplot(aes(t_freq, fct_reorder(bigram, t_freq), fill = t_freq)) +
+pq_trigrams %>% 
+  filter(rank < 20) %>% 
+  unite(trigram, word1, word2, word3, sep = " ") %>% 
+  ggplot(aes(t_freq, fct_reorder(trigram, t_freq), fill = t_freq)) +
   geom_col(show.legend = FALSE) +
-  labs(x = "Frequency", y = NULL)+
-  facet_wrap(~question)
+  labs(x = "Frequency", y = NULL)
 
-
-bigram_graph <- pq_digrams %>%
+trigram_graph <- pq_trigrams %>%
   filter(rank < 101) %>%
   graph_from_data_frame()
-bigram_graph
+trigram_graph
 
 set.seed(2017)
 
@@ -85,14 +87,30 @@ set.seed(2017)
 #   geom_node_text(aes(label = name), vjust = 1, hjust = 1)+
 #   theme_void()
 # V(bigram_graph)$size <- V(bigram_graph)$t_freq*10
-l <- layout_with_fr(bigram_graph)
-e <- get.edgelist(bigram_graph,names=FALSE)
-m <- qgraph.layout.fruchtermanreingold(e,vcount=vcount(bigram_graph))
-deg <- degree(bigram_graph,mode="all")
-fsize <- degree(bigram_graph, mode= "all")
+l <- layout_with_fr(trigram_graph)
+e <- get.edgelist(trigram_graph,names=FALSE)
+m <- qgraph.layout.fruchtermanreingold(e,vcount=vcount(trigram_graph))
+deg <- degree(trigram_graph,mode="all")
+fsize <- degree(trigram_graph, mode= "all")
 
 #png(filename=paste("assets/NetworkAnalysis_words_",Sys.Date(),".png", sep = ""), res = 100)
 
-plot(bigram_graph,layout=m, edge.arrow.size =.05,vertex.color = "pink", vertex.size =500,vertex.frame.color="deeppink",vertex.label.color="black", vertex.label.cex=fsize/5,vertex.label.dist=0.8,edge.curve = 0.75,edge.color="skyblue",edge.label.family="Arial", rescale=F, axes = FALSE, ylim = c(-50,90), xlim = c(-55,120), asp =0)
+plot(trigram_graph,
+     layout=m, 
+     edge.arrow.size =.05,
+     vertex.color = "pink", 
+     vertex.size =500,
+     vertex.frame.color="deeppink",
+     vertex.label.color="black", 
+     vertex.label.cex=fsize/2,
+     vertex.label.dist=0.6,
+     edge.curve = 0.75,
+     edge.color="skyblue",
+     edge.label.family="Arial", 
+     rescale=F, 
+     axes = FALSE, 
+     ylim = c(-90,90), 
+     xlim = c(-60,130),
+     asp =0)
 
-plot(bigram_graph,layout=m, edge.arrow.size =.05,vertex.color = "pink", vertex.size =deg*150,vertex.frame.color="deeppink",vertex.label.color="black", vertex.label.cex=0.55,vertex.label.dist=0.8,edge.curve = 0.75,edge.color="skyblue",edge.label.family="Arial", rescale=F, axes = FALSE, ylim = c(-50,90), xlim = c(-55,120), asp =0)
+plot(trigram_graph,layout=m, edge.arrow.size =.05,vertex.color = "pink", vertex.size =deg*150,vertex.frame.color="deeppink",vertex.label.color="black", vertex.label.cex=0.55,vertex.label.dist=0.8,edge.curve = 0.75,edge.color="skyblue",edge.label.family="Arial", rescale=F, axes = FALSE, ylim = c(-50,90), xlim = c(-55,120), asp =0)
