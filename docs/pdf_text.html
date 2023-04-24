@@ -215,14 +215,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>A Text analysis with <a href="https://www.tidytextmining.com/index.html">Tidytext</a></h1>
 <p>This is an exploratory data analysis (flesh out later)</p>
 <div class="cell">
-
+<div class="cell-output cell-output-stdout">
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/6g/fq9pchys33dc_vpzvpmvxb500000gn/T//RtmpuWzfbT/downloaded_packages</code></pre>
+</div>
 </div>
 <section id="downloading-the-paper" class="level2">
 <h2 class="anchored" data-anchor-id="downloading-the-paper">Downloading the paper</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># download.file("https://www.nature.com/articles/s41467-021-22747-3.pdf","assets/wq_burning.pdf", mode = "wb")</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ppr <span class="ot">&lt;-</span> <span class="fu">pdf_text</span>(<span class="st">"assets/wq_burning.pdf"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#You may need to disconnect the VPN for this line to work</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># download.file("https://www.nature.com/articles/s41467-021-22747-3.pdf","assets/wq_burning.pdf", mode = "wb")</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ppr <span class="ot">&lt;-</span> <span class="fu">pdf_text</span>(<span class="st">"assets/wq_burning.pdf"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#You may need to disconnect the VPN for this line to work</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

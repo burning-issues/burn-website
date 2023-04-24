@@ -16,9 +16,10 @@ require(librarian)
 librarian::shelf(dplyr, tidytext, tidyverse,
             widyr,igraph, ggraph,
             wordcloud, reshape2, graphlayouts,
-            pluralize, quanteda, qgraph, cowplot, readr,spacyr)
-spacy_install()
-spacy_initialize()
+            pluralize, quanteda, qgraph, cowplot, readr)
+            #spacyr)
+#spacy_install()
+#spacy_initialize()
 
 #Function to adjust table width:
   
