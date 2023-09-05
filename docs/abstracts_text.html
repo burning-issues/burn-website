@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Wildfires and Watersheds - Exploratory Text-Data Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Wildfires and Watersheds</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./timeline.html">Timeline</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./synthesis.html">Synthesis</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./eda_text.html">Analysis</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html">Community</a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-text-analysis-with-tidytext" id="toc-a-text-analysis-with-tidytext" class="nav-link active" data-scroll-target="#a-text-analysis-with-tidytext">A Text analysis with Tidytext</a>
+  <ul class="collapse">
+  <li><a href="#loading-the-dataset-tokenization" id="toc-loading-the-dataset-tokenization" class="nav-link" data-scroll-target="#loading-the-dataset-tokenization">Loading the dataset &amp; Tokenization</a>
+  <ul class="collapse">
+  <li><a href="#our-dataset" id="toc-our-dataset" class="nav-link" data-scroll-target="#our-dataset">Our dataset</a></li>
+  </ul></li>
+  <li><a href="#tokenization" id="toc-tokenization" class="nav-link" data-scroll-target="#tokenization">Tokenization</a>
+  <ul class="collapse">
+  <li><a href="#dealing-with-plurals-and-singulars" id="toc-dealing-with-plurals-and-singulars" class="nav-link" data-scroll-target="#dealing-with-plurals-and-singulars">Dealing with Plurals and singulars</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Exploratory Text-Data Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="a-text-analysis-with-tidytext" class="level1">
+<h1>A Text analysis with <a href="https://www.tidytextmining.com/index.html">Tidytext</a></h1>
+<p>This is an exploratory text analysis of abstracts from the collection of papers assembled based in survey responses</p>
+<div class="cell">
+
+</div>
+<section id="loading-the-dataset-tokenization" class="level2">
+<h2 class="anchored" data-anchor-id="loading-the-dataset-tokenization">Loading the dataset &amp; Tokenization</h2>
+<section id="our-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="our-dataset">Our dataset</h3>
+<p>Our initial dataset contains 82 abstracts from the papers… <strong>Research Areas</strong>: Which research area do you identify with? Choose all that apply</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 81
+Columns: 5
+$ id       &lt;chr&gt; "YQ8B4WSF", "5WDCKM5D", "R2T3JGBX", "NLBG56V4", "U95U29ZB", "…
+$ title    &lt;chr&gt; "Reimagine fire science for the anthropocene", "Fire as a fun…
+$ author   &lt;chr&gt; "Shuman, Jacquelyn K; Balch, Jennifer K; Barnes, Rebecca T; H…
+$ journal  &lt;chr&gt; "PNAS Nexus", "Journal of Ecology", "Biogeosciences", "Ecosph…
+$ abstract &lt;chr&gt; "Fire is an integral component of ecosystems globally and a t…</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="tokenization" class="level2">
+<h2 class="anchored" data-anchor-id="tokenization">Tokenization</h2>
+<p><strong>Tokenization</strong> is the process of separating every single word contained in an answer and creating a new data file that will contain as many rows as total words in the original dataset.</p>
+<p>Let’s use wordclouds to visualize the ouput of tokenizing the titles. I had to adjust the size of the words using the scale parameter (maximum size = 4 by default). Otherwise certain long words would not be fit into the plot (see <a href="https://www.tidytextmining.com/sentiment.html?q=cloud#wordclouds">stackoverflow answer</a>)</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="abstracts_text_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Action items: 1. Homogenize singulars and plurals 2. To find a lexicon for most common words used in research titles in environmental science. Ask Sammeera(?)</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="abstracts_text_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Pressing questions answers requires an extra step. We need to remove “filler words” a.k.a. <strong>stop words</strong> (e.g., a, the, this…). We also need to deal with plurals and singulars of the same word.</p>
+<div class="cell">
+
+</div>
+<p>More info about lexicons and text categorization can be found <a href="https://juliasilge.github.io/tidytext/reference/stop_words.html">here</a></p>
+<p>Let’s use wordclouds again to see the difference between the raw answers and “cleaned” answers for the pressing questions topic.</p>
+<!-- ```{r} -->
+<!-- pq_tokens <- pq_dat %>%  -->
+<!--   unnest_tokens(output = word, input = answers)%>% -->
+<!--   anti_join(stop_words, by = "word")%>% -->
+<!--   filter(str_detect(word,"[:alpha:]"))%>% -->
+<!--   distinct() %>%  -->
+<!--   count(word, sort = FALSE) %>%  -->
+<!--   mutate(length = nchar(word))  -->
+<!-- head(pq_tokens) -->
+<!-- ``` -->
+<section id="dealing-with-plurals-and-singulars" class="level3">
+<h3 class="anchored" data-anchor-id="dealing-with-plurals-and-singulars">Dealing with Plurals and singulars</h3>
+<p>From <a href="https://stackoverflow.com/questions/55772761/is-there-a-better-way-to-ignore-the-plural-than-stem-true-in-a-dfm">Stack overflow</a></p>
+<p>“The best way to do this is to use a tool to tag your plural nouns, and then to convert these to singular. Unlike the stemmer solution, this will not stem words such as stemming to stem, or quickly to quick, etc.I recommend using the <a href="https://spacyr.quanteda.io/index.html"><strong>spacyr</strong></a> package for this, which integrates nicely with quanteda.”</p>
+<p>Yet, there are a few steps required for this to work, as detailed in <a href="">Running Python Chunks in RStudio and rmarkdown</a>. After that you could also watch this <a href="https://www.youtube.com/watch?v=gn8oJ8FMSWY&amp;ab_channel=RenzoCaceresRossi">YouTube Tutorial</a>.</p>
+<!-- ***Raw Data*** -->
+<!-- ```{r echo=FALSE} -->
+<!-- pq_dat %>% -->
+<!--   unnest_tokens(output = word, input = answers)%>% -->
+<!--   distinct() %>%  -->
+<!--   count(word, sort = TRUE) %>%  -->
+<!--   with(wordcloud(word,n, scale = c(4, .1))) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- gls <- as.data.frame(pq_dat %>% -->
+<!--   unnest_tokens(output = word, input = answers)%>% -->
+<!--   anti_join(stop_words, by = "word")%>% -->
+<!--   filter(str_detect(word,"[:alpha:]"))%>% -->
+<!--   distinct() %>%  -->
+<!--   count(word, sort = TRUE)) -->
+<!-- head(gls) -->
+<!-- ``` -->
+<!-- ***"Clean" Data*** -->
+<!-- ```{r echo=FALSE} -->
+<!-- pq_dat %>% -->
+<!--   unnest_tokens(output = word, input = answers)%>% -->
+<!--   anti_join(stop_words, by = "word")%>% -->
+<!--   filter(str_detect(word,"[:alpha:]"))%>% -->
+<!--   distinct() %>%  -->
+<!--   count(word, sort = TRUE) %>%  -->
+<!--   with(wordcloud(word,n, scale = c(4, .1))) -->
+<!-- ``` -->
+<!-- We used the function `anti_join` to remove stop words. We also want to remove numbers (like year of publication). To do so we use the combination of `filter` and `str_detec` to preserve only alphabetic characters `"[:alpha:]"`. Finally, to make sure we are not double counting words, we use the function `distinct`. -->
+<!-- ***Glossary*** -->
+<!-- Besides identifying the words that are more frequently used in the answers, we could use our dataset to create a consistent glossary.  -->
+<!-- ```{r echo=FALSE} -->
+<!-- gls <- as.data.frame(pq_dat %>% -->
+<!--   unnest_tokens(output = word, input = answers)%>% -->
+<!--   anti_join(stop_words, by = "word")%>% -->
+<!--   filter(str_detect(word,"[:alpha:]"))%>% -->
+<!--   distinct() %>%  -->
+<!--   count(word, sort = TRUE)) -->
+<!-- gls_dsp <- rbind(head(gls),tail(gls)) -->
+<!-- colnames(gls_dsp) <- c("Word", "Frequency") -->
+<!-- knitr::kable(gls_dsp,format="html") %>%  -->
+
+<!--    html_table_width(c(200,200)) -->
+<!-- ``` -->
+<!-- To do so, we could use a frequency filter; including words above a frequency threshold (e.g. 2) -->
+<!-- ```{r} -->
+<!-- gls_fw <- filter(gls, n > 2) -->
+<!-- gls_fwp <- rbind(head(gls_fw),tail(gls_fw)) -->
+<!-- colnames(gls_fwp) <- c("Word", "Frequency") -->
+<!-- knitr::kable(gls_fwp,format="html") %>%  -->
+
+<!--    html_table_width(c(200,200)) -->
+<!-- ``` -->
+<!-- We still have a long list of words that are not necessarily associated to wildfires. We can look into different associations to get collections of keywords. Bit before that, we will start with term frequencies -->
+<!-- ## [Term Frequencies](https://www.tidytextmining.com/tfidf.html) -->
+<!-- ```{r echo=FALSE} -->
+<!-- eda_words <- pq_dat %>% -->
+<!--   unnest_tokens(output = word, input = answers)%>% -->
+<!--   anti_join(stop_words, by = "word")%>% -->
+<!--   filter(str_detect(word,"[:alpha:]"))%>% -->
+<!--   distinct() %>%  -->
+<!--   count(word, sort = TRUE) %>%  -->
+<!--   select(word, n) %>%  -->
+<!--   mutate(rank = row_number(), -->
+<!--          total=sum(n), -->
+<!--          t_freq = n/total) -->
+<!-- #Distribution of frequency values -->
+<!-- eda_words %>% filter(rank<26) %>%  -->
+<!--   ggplot(aes(t_freq, fct_reorder(word, t_freq), fill = t_freq)) + -->
+<!--   geom_col(show.legend = FALSE) + -->
+<!--   labs(x = "Frequency", y = NULL) -->
+<!-- #Zipf's law for survey answers -->
+<!-- eda_words %>%  -->
+<!--   ggplot(aes(rank,t_freq)) +  -->
+<!--   geom_line(size = 1.1, alpha = 0.8, show.legend = FALSE) +  -->
+<!--   geom_abline(intercept = -0.62, slope = -1.1,  -->
+<!--               color = "gray50", linetype = 2) + -->
+<!--   scale_x_log10() + -->
+<!--   scale_y_log10() -->
+<!-- ``` -->
+<!-- Words with low frequency make a large contribution to the text. -->
+<!-- We observe deviations from the Zipf's law both at the higher rank words (rare)and the lower rank words (more common). On the one hand, we have more words than expected at higher ranks, and less words than expected at lower ranks. This is perhaps the effect of abundant technical terms in the corpus analyzed here.  -->
+<!-- Analyzing word's frequencies using Zipf's law seems to have some drawbacks, see: [Zipf’s law holds for phrases, not words](https://www.nature.com/articles/srep12209). However the `unnest_tokens` function can also be applied to sentences.  -->
+<!-- ```{r echo=FALSE} -->
+<!-- pq_snt <- pq_dat %>% -->
+<!--   unnest_sentences(output = sentences, input = answers) -->
+<!-- pq_snt_s <- pq_snt[c(1:6),] -->
+<!-- knitr::kable(pq_snt_s,format="html") %>%  -->
+
+<!--    html_table_width(c(100,100,400)) -->
+<!-- ``` -->
+<!-- ### The `bind_tf_idf` function -->
+<!-- A function from the `tidytext` package that aims to find the most common words in a text by decreasing the weight of the most common terms and increasing it for the less common (i.e. meeting in the middle scenario) -->
+<!-- "The logic of tf-idf is that the words containing the greatest information about a particular document are the words that appear many times in that document, but in relatively few others." -->
+<!-- It is meant to be for document intercomparison. Here we could use it for questions, abstracts, or even journal articles.  -->
+<!-- ## Text mining with multiple pdf's -->
+<!-- [Text mining with R - Importing PDF and Text Detection](https://www.youtube.com/watch?v=G1_mbenG8H4&ab_channel=LiquidBrain) -->
+<!-- ## Correlation analysis -->
+<!-- ### Relationships between words: n-grams -->
+<!-- ```{r} -->
+<!-- pq_digrams <- pq_dat %>% -->
+<!--   filter(str_detect(answers,"[:alpha:]"))%>% -->
+<!--   unnest_tokens(bigram, answers, token = "ngrams", n = 2) %>%  -->
+<!--   separate(bigram,c("word1", "word2"), sep = " ") %>%  -->
+<!--   filter(!word1 %in% stop_words$word) %>%  -->
+<!--   filter(!word2 %in% stop_words$word) %>%  -->
+<!--   count(word1, word2, sort = TRUE) %>%  -->
+<!--   mutate(rank = row_number(), -->
+<!--          total=sum(n), -->
+<!--          t_freq = n/total) -->
+<!-- head(pq_digrams) -->
+<!-- #Distribution of frequency values -->
+<!-- pq_digrams %>% filter(rank < 26) %>%  -->
+<!--   unite(bigram, word1, word2, sep = " ") %>%  -->
+<!--   ggplot(aes(t_freq, fct_reorder(bigram, t_freq), fill = t_freq)) + -->
+<!--   geom_col(show.legend = FALSE) + -->
+<!--   labs(x = "Frequency", y = NULL) -->
+<!-- #Zipf's law for survey answers -->
+<!-- pq_digrams %>%  -->
+<!--   ggplot(aes(rank,t_freq)) +  -->
+<!--   geom_line(size = 1.1, alpha = 0.8, show.legend = FALSE) +  -->
+<!--   geom_abline(intercept = -0.62, slope = -1.1,  -->
+<!--               color = "gray50", linetype = 2) + -->
+<!--   scale_x_log10() + -->
+<!--   scale_y_log10()+ -->
+<!--   xlab("Rarity")+ -->
+<!--   ylab("Frequency") -->
+<!-- ``` -->
+<!-- ### Visualizing a network of bigrams with `ggraph` -->
+<!-- ```{r} -->
+<!-- #library(igraph) -->
+<!-- #library(graphlayouts) -->
+<!-- #library(qgraph) -->
+<!-- bigram_graph <- pq_digrams %>% -->
+<!--   filter(rank < 101) %>% -->
+<!--   graph_from_data_frame() -->
+<!-- bigram_graph -->
+<!-- set.seed(2017) -->
+<!-- # a <- grid::arrow(type = "closed", length = unit(.15, "inches")) -->
+<!-- #  -->
+<!-- # ggraph(bigram_graph, layout = "fr") + -->
+<!-- #   geom_edge_link(show.legend = FALSE, -->
+<!-- #                  arrow = a, end_cap = circle(.07, 'inches')) + -->
+<!-- #   geom_edge_link(aes(edge_alpha = n), show.legend = FALSE, -->
+<!-- #                  arrow = a, end_cap = circle(.035, 'inches')) + -->
+<!-- #   geom_node_point(color = "blue", size = 3) + -->
+<!-- #   geom_node_text(aes(label = name), vjust = 1, hjust = 1)+ -->
+<!-- #   theme_void() -->
+<!-- # V(bigram_graph)$size <- V(bigram_graph)$t_freq*10 -->
+<!-- l <- layout_with_fr(bigram_graph) -->
+<!-- e <- get.edgelist(bigram_graph,names=FALSE) -->
+<!-- m <- qgraph.layout.fruchtermanreingold(e,vcount=vcount(bigram_graph)) -->
+<!-- deg <- degree(bigram_graph,mode="all") -->
+<!-- fsize <- degree(bigram_graph, mode= "all") -->
+<!-- #png(filename=paste("assets/NetworkAnalysis_words_",Sys.Date(),".png", sep = ""), res = 100) -->
+<!-- plot(bigram_graph,layout=m, edge.arrow.size =.05,vertex.color = "pink", vertex.size =500,vertex.frame.color="deeppink",vertex.label.color="black", vertex.label.cex=fsize/5,vertex.label.dist=0.8,edge.curve = 0.75,edge.color="skyblue",edge.label.family="Arial", rescale=F, axes = FALSE, ylim = c(-50,90), xlim = c(-55,120), asp =0) -->
+<!-- #dev.off() -->
+<!-- #png(filename=paste("assets/NetworkAnalysis_bubbles_",Sys.Date(),".png", sep = ""), res = 100) -->
+<!-- plot(bigram_graph,layout=m, edge.arrow.size =.05,vertex.color = "pink", vertex.size =deg*150,vertex.frame.color="deeppink",vertex.label.color="black", vertex.label.cex=0.55,vertex.label.dist=0.8,edge.curve = 0.75,edge.color="skyblue",edge.label.family="Arial", rescale=F, axes = FALSE, ylim = c(-50,90), xlim = c(-55,120), asp =0) -->
+<!-- #dev.off() -->
+<!-- ``` -->
+<!-- Editing network graphs: [GitHub-Issue](https://github.com/thomasp85/ggraph/issues/169)  -->
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
