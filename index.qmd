@@ -4,6 +4,9 @@ title: "Burning Questions: The Role of Wildfires in Watershed Functioning"
 
 ![](https://raw.githubusercontent.com/burning-issues/comm-assets/main/wildfires.png){fig-alt="Intense fire consuming trees in a forest" fig-align="center"}
 
+# We've moved! Please visit us at: https://burning-issues-watersheds.github.io/5-bui-user.interface/
+
+
 # Welcome!
 
 This page is the user-friendly face of our GitHub repository for this project.
